@@ -21,10 +21,3 @@ test_that("Testing function linreg()", {
                info="Error: Coefficients are not correct.")
   }
 )
-
-test_that("Testing method coefficients()", {
-  
-  
-  
-  }
-)
