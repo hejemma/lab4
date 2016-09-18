@@ -26,7 +26,7 @@ linreg<- function(formula, data){
 
   # skapa model matrix
   langdX<-length(formula)  # number of parameters
-  varX<-all.vars(formula[[langdX]])  #kolla vilka som ska va i model matrix
+  varX<-all.vars(formula[[3]])  #kolla vilka som ska va i model matrix
   formen<-as.formula(paste("~",paste(varX,collapse="+"))) # gör formula till model matrix
   modmatX<-model.matrix(formen, data=data) # model matrix X 
   
