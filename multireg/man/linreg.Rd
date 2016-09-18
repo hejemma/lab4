@@ -12,10 +12,12 @@ linreg(formula, data)
 \item{data}{A dataframe containing the variables for used in formula.}
 }
 \value{
-An object on class linreg \code{x} and \code{y}.
+An object of class linreg.
 }
 \description{
-Computing regression statistics using ordinary least squares.
+The function calculates the regression coefficients, fitted values, residuals, 
+degrees of freedom, residual variance, 
+variance of regression coefficients, t-values and p-values for each coefficients.
 }
 \examples{
 linreg(forumla= Sepal.Width ~ Sepal.Length, data= iris)

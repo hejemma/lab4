@@ -1,4 +1,3 @@
-# ADD THE RED LINE
 
 plot.linreg<-function(argument){
   plotdf<-data.frame(Fitted=argument$fitted,
@@ -11,3 +10,4 @@ plot.linreg<-function(argument){
     geom_hline(yintercept=0, col="black", linetype="dashed") # the dashed black line
   p
 }
+# få dit den röda linjejäveln
