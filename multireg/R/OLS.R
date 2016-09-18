@@ -4,10 +4,10 @@
 #' degrees of freedom, residual variance, 
 #' variance of regression coefficients, t-values and p-values for each coefficients.
 #' @param formula A regression formula.
-#' @param data A dataframe containing the variables for used in formula.
+#' @param data A dataframe containing the variables used in formula.
 #' @return An object of class linreg.
 #' @examples
-#' linreg(forumla= Sepal.Width ~ Sepal.Length, data= iris)
+#' linreg(formula= Sepal.Width ~ Sepal.Length, data= iris)
 #' linreg(formula = eruptions ~ waiting, data= faithful)
 #' @export
 
@@ -26,7 +26,7 @@ linreg<- function(formula, data){
 
   # skapa model matrix
   langdX<-length(formula)  # number of parameters
-  varX<-all.vars(formula[[langdX]])  #kolla vilka som ska va i model matrix
+  varX<-all.vars(formula[[3]])  #kolla vilka som ska va i model matrix
   formen<-as.formula(paste("~",paste(varX,collapse="+"))) # gör formula till model matrix
   modmatX<-model.matrix(formen, data=data) # model matrix X 
   
