@@ -8,3 +8,4 @@ Maintainer: Emma Wallentinsson <emmwa513@student.liu.se>
 Description: Calculating, blabla
 License: What license is it under?
 Imports: ggplot2
+Suggests: testthat
