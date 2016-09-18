@@ -9,7 +9,8 @@ Description: This package contains functions for fitting linear regression
     models using the Ordinary Least Square Method.
 License: What license is it under?
 Imports:
-    ggplot2
+    ggplot2,
+    gridExtra 
 Suggests:
     testthat
 RoxygenNote: 5.0.1
