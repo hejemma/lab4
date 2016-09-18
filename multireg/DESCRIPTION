@@ -3,7 +3,8 @@ Type: Package
 Title: Multiple regression
 Version: 1.0
 Date: 2016-09-16
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
+Author: Emma Wallentinsson, Zaida Liendeborg  
+Maintainer: Emma Wallentinsson <emmwa513@student.liu.se>
+Description: Calculating, blabla
 License: What license is it under?
+Imports: ggplot2
