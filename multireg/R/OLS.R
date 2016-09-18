@@ -66,6 +66,7 @@ linreg<- function(formula, data){
   
   pval<- 2 *( 1 - pt(abs(t_beta), df))
   
+  
   #pull all statistics in a object
   statobj<-list("coefficients"=B_hat,"fitted values"=y_hat,"residuals"=e_hat,
                 "df"=df,"residual variance"=sigma2_hat,
