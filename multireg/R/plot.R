@@ -1,3 +1,4 @@
+# ADD THE RED LINE
 
 plot.linreg<-function(argument){
   plotdf<-data.frame(Fitted=argument$fitted,
