@@ -1,11 +1,12 @@
 Package: multireg
 Type: Package
-Title: Multiple regression
+Title: The multireg package
 Version: 1.0
 Date: 2016-09-16
 Author: Emma Wallentinsson, Zaida Liendeborg
 Maintainer: Emma Wallentinsson <emmwa513@student.liu.se>
-Description: Calculating, blabla
+Description: This package contains functions for fitting linear regression
+    models using the Ordinary Least Square Method.
 License: What license is it under?
 Imports:
     ggplot2
