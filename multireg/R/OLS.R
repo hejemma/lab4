@@ -7,7 +7,7 @@
 #######################################################
 
 linreg<- function(formula, data){
-  
+
   # skapa model matrix
   langdX<-length(formula)  # number of parameters
   varX<-all.vars(formula[[langdX]])  #kolla vilka som ska va i model matrix
@@ -76,4 +76,5 @@ linreg<- function(formula, data){
   
   class(statobj)<-"linreg"
   
+  return(statobj)
 }
