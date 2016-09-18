@@ -8,3 +8,4 @@ summary.linreg<- function(x){
   #result<- list("call"=call,"Coefficients"=sum,"Sigma"=sigma, "DF"=df)
   return(summary)
 }
+
