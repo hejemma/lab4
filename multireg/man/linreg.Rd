@@ -9,7 +9,7 @@ linreg(formula, data)
 \arguments{
 \item{formula}{A regression formula.}
 
-\item{data}{A dataframe containing the variables for used in formula.}
+\item{data}{A dataframe containing the variables used in formula.}
 }
 \value{
 An object of class linreg.
@@ -20,7 +20,7 @@ degrees of freedom, residual variance,
 variance of regression coefficients, t-values and p-values for each coefficients.
 }
 \examples{
-linreg(forumla= Sepal.Width ~ Sepal.Length, data= iris)
+linreg(formula= Sepal.Width ~ Sepal.Length, data= iris)
 linreg(formula = eruptions ~ waiting, data= faithful)
 }
 
