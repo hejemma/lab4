@@ -1,3 +1,16 @@
+#' Computing regression statistics using ordinary least squares.
+#' 
+#' @param formula A regression formula.
+#' @param data A dataframe containing the variables for used in formula.
+#' @return An object on class linreg \code{x} and \code{y}.
+#' @examples
+#' linreg(forumla= Sepal.Width ~ Sepal.Length, data= iris)
+#' linreg(formula = eruptions ~ waiting, data= faithful)
+
+
+
+
+
 
 #FÖR ATT TESTA ALLA MATRISUTRÄKNINGAR.. 
 #  data(iris)

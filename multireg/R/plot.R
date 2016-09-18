@@ -11,5 +11,3 @@ plot.linreg<-function(argument){
     geom_hline(yintercept=0, col="black", linetype="dashed") # the dashed black line
   p
 }
-
-plot(listhelv)
