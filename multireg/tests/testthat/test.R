@@ -1,7 +1,7 @@
-test_that("Testing function linreg()", {
+test_that("Testing linreg()", {
   iris<- data(iris) 
   formel<- as.formula(Petal.Length ~ Sepal.Length + Petal.Width)
-  test<- lm(formula = as.formula(Petal.Length ~ Sepal.Length + Petal.Width), data=iris)
+  test<- lm(formula = formel, data=iris)
   
   faith<- data(faithful)
   formel_faith<- as.formula(eruptions ~ waiting)
