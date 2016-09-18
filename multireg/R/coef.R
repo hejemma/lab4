@@ -6,5 +6,4 @@ coef.linreg<- function(x){
   return(coef)
 }
 
-coef(linreg(formula=formel, data=iris))
 

@@ -5,5 +5,4 @@ resid.linreg<- function(x){
   return(resid)
 }
 
-resid(linreg(formula=formel, data=iris))
 
