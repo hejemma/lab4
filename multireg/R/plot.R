@@ -9,7 +9,7 @@
 #' @export
 
 
-plot.linreg<-function(x){
+plot.linreg<-function(x, ...){
   plotdf<-data.frame(Fitted=x$fitted,
                      Residuals=x$residuals)# select the relevant data and make df
   #coefdf<-data.frame(Coef=argument$coefficients)  

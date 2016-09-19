@@ -1,9 +1,11 @@
 #' Extract Residuals from linreg object.
 #' 
 #' \code{resid} returns the residuals of the regression model calculated by the \code{\link{linreg}} function.
-#' @param See \code{\link{linreg}}
-#' @return residuals extracted from the model \code{x}.
-
+#' 
+#' @param x is an object of the class \code{linreg}.
+#' 
+#' @return A numeric vector with the residuals extracted from the model calculated by \code{\link{linreg}} function.
+#'
 #' @examples
 #' x<- linreg(formula= Sepal.Width ~ Sepal.Length, data= iris)
 #' resid(x)
@@ -11,8 +13,8 @@
 
 
 resid.linreg<- function(x){
-  resid<- as.vector(x$residuals)
-  return(resid)
+  res<- as.vector(x$residuals)
+  return(res)
 }
 
 

@@ -4,13 +4,13 @@
 \alias{coef.linreg}
 \title{Extract Beta Coefficients.}
 \usage{
-\method{coef}{linreg}(x)
+\method{coef}{linreg}(object, ...)
 }
 \arguments{
-\item{See}{\code{\link{linreg}}}
+\item{x}{is an object of the class \code{linreg}}
 }
 \value{
-Coefficients extracted from the model \code{x} and returned as a named vector.
+Coefficients extracted from the model \code{\link{linreg}} and returned as a named vector.
 }
 \description{
 \code{coef} returns the estimated beta coefficients of the regression model calculated by the \code{\link{linreg}} function.

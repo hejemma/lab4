@@ -4,16 +4,16 @@
 \alias{print.linreg}
 \title{Extract Beta Coefficients and equation if the model.}
 \usage{
-\method{print}{linreg}(x)
+\method{print}{linreg}(x, ...)
 }
 \arguments{
-\item{See}{\code{\link{linreg}}}
+\item{x}{is an object of the class \code{linreg}}
 }
 \value{
-Coefficients and equations extracted from the model \code{x} and returned as a named vector.
+Coefficients and equations extracted from the model in \code{\link{linreg}} and returned as a named vector.
 }
 \description{
-\code{coef} returns the estimated beta coefficients and the equation of the regression model calculated by the \code{\link{linreg}} function.
+\code{print} returns the estimated beta coefficients and the equation of the regression model calculated by the \code{\link{linreg}} function.
 }
 \examples{
 x<- linreg(formula= Sepal.Width ~ Sepal.Length, data= iris)

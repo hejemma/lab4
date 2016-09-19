@@ -2,18 +2,18 @@
 % Please edit documentation in R/summary.R
 \name{summary.linreg}
 \alias{summary.linreg}
-\title{Extract Summary from linreg object.}
+\title{Extract Summary Results from linreg object.}
 \usage{
-\method{summary}{linreg}(x)
+\method{summary}{linreg}(object, ...)
 }
 \arguments{
-\item{See}{\code{\link{linreg}}}
+\item{x}{is an object of the class \code{linreg}}
 }
 \value{
-Summary extracted from the model \code{x}.
+A list of summary result extracted from the model in \code{\link{linreg}}.
 }
 \description{
-\code{summary} returns the fitted values of the regression model calculated by the \code{\link{linreg}} function.
+\code{summary} returns the result summariest of the regression model fitted by the \code{\link{linreg}} function.
 }
 \examples{
 x<- linreg(formula= Sepal.Width ~ Sepal.Length, data= iris)

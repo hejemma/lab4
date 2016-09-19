@@ -7,10 +7,10 @@
 \method{resid}{linreg}(x)
 }
 \arguments{
-\item{See}{\code{\link{linreg}}}
+\item{x}{is an object of the class \code{linreg}.}
 }
 \value{
-residuals extracted from the model \code{x}.
+A numeric vector with the residuals extracted from the model calculated by \code{\link{linreg}} function.
 }
 \description{
 \code{resid} returns the residuals of the regression model calculated by the \code{\link{linreg}} function.

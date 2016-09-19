@@ -4,13 +4,13 @@
 \alias{predict.linreg}
 \title{Extract Fitted Values from linreg object.}
 \usage{
-\method{predict}{linreg}(x)
+\method{predict}{linreg}(object, ...)
 }
 \arguments{
-\item{See}{\code{\link{linreg}}}
+\item{x}{is an object of the class \code{linreg}}
 }
 \value{
-Fitted values extracted from the model \code{x}.
+A numeric vector of fitted values extracted from the model in \code{\link{linreg}}.
 }
 \description{
 \code{pred} returns the fitted values of the regression model calculated by the \code{\link{linreg}} function.
