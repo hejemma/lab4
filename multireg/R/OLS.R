@@ -84,9 +84,9 @@ linreg<- function(formula, data){
   
   
   #pull all statistics in a object
-  statobj<-list("coefficients"=B_hat,"fitted values"=y_hat,"residuals"=e_hat,
-                "df"=df,"residual variance"=sigma2_hat,
-                "variance of regression coefficent"=var_B_hat,
+  statobj<-list("coefficients"=B_hat,"fitted"=y_hat,"residuals"=e_hat,
+                "df"=df,"residual_variance"=sigma2_hat,
+                "variance_of_regression_coefficent"=var_B_hat,
                 "t-value"=t_beta,"pvalue"=pval)
   
   ### making obbject of class linreg 
