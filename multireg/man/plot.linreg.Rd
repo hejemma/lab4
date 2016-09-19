@@ -7,7 +7,7 @@
 \method{plot}{linreg}(x)
 }
 \arguments{
-\item{argument}{An object of class linreg.}
+\item{x}{An object of class linreg.}
 }
 \value{
 A two in one plot over residuals versus fitted values.

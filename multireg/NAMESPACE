@@ -3,4 +3,4 @@
 S3method(coef,linreg)
 S3method(plot,linreg)
 export(linreg)
-export(pred)
+export(pred.linreg)
