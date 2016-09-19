@@ -19,6 +19,6 @@ A numeric vector of fitted values extracted from the model in \code{\link{linreg
 }
 \examples{
 x<- linreg(formula= Sepal.Width ~ Sepal.Length, data= iris)
-pred(x)
+predict(x)
 }
 

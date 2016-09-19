@@ -16,7 +16,7 @@ test_that("Testing linreg()", {
   expect_equal(model$coefficients, as.matrix(lmodel$coefficients), 
                info="Error: Coefficients are not correct.")
   
-  expect_equal(model$residuals, as.matrix(lmodel$residuals),
+  expect_equal(model$residuals, as.vector(lmodel$residuals),
                info="Error: Coefficients are not correct.")
   
   expect_equal(model$fitted, as.matrix(lmodel$fitted.values), 

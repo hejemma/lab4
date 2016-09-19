@@ -7,7 +7,7 @@
 #'
 #' @examples
 #' x<- linreg(formula= Sepal.Width ~ Sepal.Length, data= iris)
-#' pred(x)
+#' predict(x)
 #' @export
 
 

@@ -12,10 +12,9 @@
 #' @export
 
 
-
 resid.linreg<- function(object, ...){
-  resid<- object$residuals
-  return(as.vector(resid))
+  res<- as.vector(object$residuals)
+  return(res)
 }
 
 

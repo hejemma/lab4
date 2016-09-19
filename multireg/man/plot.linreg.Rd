@@ -19,6 +19,7 @@ The function plots the residuals versus fitted values, and the standardized resi
 versus the fitted value
 }
 \examples{
-plot(x=linreg)
+x<- linreg(formula= Sepal.Width ~ Sepal.Length, data= iris)
+plot(x)
 }
 

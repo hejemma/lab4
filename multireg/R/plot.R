@@ -9,7 +9,8 @@
 #' @import gridExtra
 #' @import graphics
 #' @examples
-#' plot(x=linreg)
+#' x<- linreg(formula= Sepal.Width ~ Sepal.Length, data= iris)
+#' plot(x)
 #' @export
 
 

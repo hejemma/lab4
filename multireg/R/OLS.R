@@ -84,16 +84,15 @@ linreg<- function(formula, data){
   
   #call funktion
   formen<- formula
+  
   #pull all statistics in a object
-  statobj<-list("formula"=formen, "coefficients"=B_hat,"fitted"=y_hat,"residuals"=e_hat,
-                "df"=df,"residual_variance"=sigma2_hat,
+  statobj<-list("formula"=formen, "coefficients"=B_hat,"fitted"=y_hat,"residuals"=as.vector(e_hat),
+                "df"=df, "residual_variance"=sigma2_hat,
                 "variance_of_regression_coefficent"=var_B_hat,
-                "tvalue"=t_beta,"pvalue"=pval)
+                "tvalue"=t_beta, "pvalue"=pval)
   
   ### making obbject of class linreg 
   
   class(statobj)<-"linreg"
-  
-  
   return(statobj)
 }
