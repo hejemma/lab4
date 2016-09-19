@@ -3,6 +3,7 @@
 S3method(coef,linreg)
 S3method(plot,linreg)
 S3method(predict,linreg)
+S3method(print,linreg)
 S3method(resid,linreg)
 S3method(summary,linreg)
 export(linreg)

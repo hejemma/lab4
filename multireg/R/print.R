@@ -1,3 +1,18 @@
+#' Extract Beta Coefficients and equation if the model.
+#' 
+#' \code{coef} returns the estimated beta coefficients and the equation of the regression model calculated by the \code{\link{linreg}} function.
+#' @param See \code{\link{linreg}}
+#' @return Coefficients and equations extracted from the model \code{x} and returned as a named vector.
+
+#' @examples
+#' x<- linreg(formula= Sepal.Width ~ Sepal.Length, data= iris)
+#' print(x)
+#' @export
+
 print.linreg<- function(x){
-  
+  call<-  x$formula
+  coeff<- as.vector(x$coefficients)
+  names(coeff)<- rownames(x$coefficients)
+  result<- list(Call =call, Coefficients = coeff)
+  return(result)
 }
