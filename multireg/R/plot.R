@@ -2,7 +2,7 @@
 #' 
 #' The function plots the residuals versus fitted values, and the standardized residuals
 #' versus the fitted value 
-#' @param argument An object of class linreg.
+#' @param x An object of class linreg.
 #' @return A two in one plot over residuals versus fitted values.
 #' @examples
 #' plot(x=linreg)
