@@ -28,7 +28,7 @@ plot.linreg<-function(x){
   
   
   p2<- ggplot(plotdf, aes(x=Fitted, y=sqrt(abs(std_res)))) + geom_point() +
-    ggtitle("Scale Location") + ylab(expression(sqrt("|Standardized residuals")))
+    ggtitle("Scale Location") + ylab(expression(sqrt("|Standardized residuals")))+ theme_bw()
   grid.arrange(p,p2,ncol=1)
   
 }
