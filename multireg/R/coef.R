@@ -1,8 +1,3 @@
-#' Beta coefficients of the regression model.
-#' 
-#' Returning the beta estimates of the regression model calculated by the \code{\link{linreg}} function.
-#' @param See \code{\link{linreg}}
-#' @return A named vector.
 #' Extract Beta Coefficients.
 #' 
 #' \code{coef} returns the estimated beta coefficients of the regression model calculated by the \code{\link{linreg}} function.

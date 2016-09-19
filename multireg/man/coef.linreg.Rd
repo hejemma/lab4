@@ -2,25 +2,18 @@
 % Please edit documentation in R/coef.R
 \name{coef.linreg}
 \alias{coef.linreg}
-\title{Beta coefficients of the regression model.}
+\title{Extract Beta Coefficients.}
 \usage{
 \method{coef}{linreg}(x)
 }
 \arguments{
 \item{See}{\code{\link{linreg}}}
-
-\item{See}{\code{\link{linreg}}}
 }
 \value{
-A named vector.
-Extract Beta Coefficients.
-
-\code{coef} returns the estimated beta coefficients of the regression model calculated by the \code{\link{linreg}} function.
-
 Coefficients extracted from the model \code{x} and returned as a named vector.
 }
 \description{
-Returning the beta estimates of the regression model calculated by the \code{\link{linreg}} function.
+\code{coef} returns the estimated beta coefficients of the regression model calculated by the \code{\link{linreg}} function.
 }
 \examples{
 x<- linreg(formula= Sepal.Width ~ Sepal.Length, data= iris)
