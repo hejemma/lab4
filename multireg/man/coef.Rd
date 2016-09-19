@@ -8,9 +8,16 @@ coef(x)
 }
 \arguments{
 \item{See}{\code{\link{linreg}}}
+
+\item{See}{\code{\link{linreg}}}
 }
 \value{
 A named vector.
+Extract Beta Coefficients.
+
+\code{coef} returns the estimated beta coefficients of the regression model calculated by the \code{\link{linreg}} function.
+
+Coefficients extracted from the model \code{x} and returned as a named vector.
 }
 \description{
 Returning the beta estimates of the regression model calculated by the \code{\link{linreg}} function.
