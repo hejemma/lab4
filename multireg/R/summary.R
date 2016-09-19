@@ -16,9 +16,12 @@ summary.linreg<- function(x){
   tval<-x$tvalue
   pval<-x$pvalue
   deg<-x$df
+  fort<-x$formula
   stdres<-sqrt(x$residual_variance)
   dataf<-data.frame("Coefficients"=coef, "Stderror"=stderr,"p-value"=pval,"t-value"=tval)
-  result<-list(dataf,"df"=deg,"standard error of residulals"=stdres)
+  result<-list(dataf,"df"=deg,"standard error of residulals"=stdres, "formula"=fort)
   return(result)
 }
+
+
 
