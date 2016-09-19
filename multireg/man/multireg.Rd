@@ -10,22 +10,22 @@ The multireg package consists of the following:
 }
 \section{Functions}{
 
-The \link[multireg]{linreg} function fits a regression model using Ordinary Least Square method.
+\link[multireg]{linreg} function fits a regression model using Ordinary Least Square method.
 }
 
 \section{methods of class \code{linreg}}{
 
-\link[multireg]{coef} extracts the estimates of the beta parameters from the regression model. The estimates then is saved in a named vector.
+\link[multireg]{coef.linreg} extracts the estimates of the beta parameters from the regression model. The estimates then is saved in a named vector.
 
-\link[multireg]{predict} extracts the fitted values obtained by the regression model. 
+\link[multireg]{predict.linreg} extracts the fitted values obtained by the regression model. 
 
-\link[multireg]{resid} extracts the residuals obtained by the regression model.
+\link[multireg]{resid.linreg} extracts the residuals obtained by the regression model.
 
-\link[multireg]{plot} plots the residuals and the square root of the absolute value of the standardized residuals against the fitted values.
+\link[multireg]{plot.linreg} plots the residuals and the square root of the absolute value of the standardized residuals against the fitted values.
 
-\link[multireg]{print} prints out the equation of the regression model and the beta coefficients estimates.
+\link[multireg]{print.linreg} prints out the equation of the regression model and the beta coefficients estimates.
 
-\link[multireg]{summary} prints out the estimates of the coefficients together with their respective standard error, t-value and p-value. The method also prints out the standard error of the residuals and the degrees of freedom.
+\link[multireg]{summary.linreg} prints out the estimates of the coefficients together with their respective standard error, t-value and p-value. The method also prints out the standard error of the residuals and the degrees of freedom.
 }
 \author{
 Emma Wallentinsson, Zaida Liendeborg
