@@ -19,7 +19,7 @@ summary.linreg<- function(x){
   fort<-x$formula
   stdres<-sqrt(x$residual_variance)
   dataf<-data.frame("Coefficients"=coef, "Stderror"=stderr,"p-value"=pval,"t-value"=tval)
-  result<-list(dataf,"df"=deg,"standard error of residulals"=stdres, "formula"=fort)
+  result<-list("formula"=fort, "Coefficients"= dataf,"df"=deg,"standard error of residulals"=stdres)
   return(result)
 }
 

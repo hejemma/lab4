@@ -13,6 +13,6 @@ print.linreg<- function(x){
   call<-  x$formula
   coeff<- as.vector(x$coefficients)
   names(coeff)<- rownames(x$coefficients)
-  result<- list(Call =call, Coefficients = coeff)
+  result<- list(Formula =call, Coefficients = coeff)
   return(result)
 }
