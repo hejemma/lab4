@@ -7,7 +7,9 @@
 \method{summary}{linreg}(object, ...)
 }
 \arguments{
-\item{x}{is an object of the class \code{linreg}}
+\item{object}{An object of class \code{linreg}}
+
+\item{...}{other arguments.}
 }
 \value{
 A list of summary result extracted from the model in \code{\link{linreg}}.

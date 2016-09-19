@@ -4,10 +4,12 @@
 \alias{resid.linreg}
 \title{Extract Residuals from linreg object.}
 \usage{
-\method{resid}{linreg}(x)
+\method{resid}{linreg}(object, ...)
 }
 \arguments{
-\item{x}{is an object of the class \code{linreg}.}
+\item{object}{An object of class \code{linreg}}
+
+\item{...}{other arguments.}
 }
 \value{
 A numeric vector with the residuals extracted from the model calculated by \code{\link{linreg}} function.

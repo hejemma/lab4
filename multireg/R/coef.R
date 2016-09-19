@@ -2,7 +2,8 @@
 #' 
 #' \code{coef} returns the estimated beta coefficients of the regression model calculated by the \code{\link{linreg}} function.
 #' 
-#' @param x is an object of the class \code{linreg}
+#' @param object An object of class \code{linreg} 
+#' @param ... other arguments.
 #' @return Coefficients extracted from the model \code{\link{linreg}} and returned as a named vector.
 #'
 #' @examples
@@ -11,8 +12,8 @@
 #' @export
   
 coef.linreg<- function(object, ...){
-  coef<- as.vector(x$coefficients)
-  names(coef)<- rownames(x$coefficients)
+  coef<- as.vector(object$coefficients)
+  names(coef)<- rownames(object$coefficients)
   return(coef)
 }
 

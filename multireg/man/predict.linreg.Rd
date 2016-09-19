@@ -7,7 +7,9 @@
 \method{predict}{linreg}(object, ...)
 }
 \arguments{
-\item{x}{is an object of the class \code{linreg}}
+\item{object}{An object of class \code{linreg}}
+
+\item{...}{other arguments.}
 }
 \value{
 A numeric vector of fitted values extracted from the model in \code{\link{linreg}}.

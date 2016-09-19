@@ -7,7 +7,9 @@
 \method{coef}{linreg}(object, ...)
 }
 \arguments{
-\item{x}{is an object of the class \code{linreg}}
+\item{object}{An object of class \code{linreg}}
+
+\item{...}{other arguments.}
 }
 \value{
 Coefficients extracted from the model \code{\link{linreg}} and returned as a named vector.

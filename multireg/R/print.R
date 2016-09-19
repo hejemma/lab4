@@ -1,7 +1,8 @@
 #' Extract Beta Coefficients and equation if the model.
 #' 
 #' \code{print} returns the estimated beta coefficients and the equation of the regression model calculated by the \code{\link{linreg}} function.
-#' @param x is an object of the class \code{linreg}
+#' @param x An object of class \code{linreg}
+#' @param ... other arguments.
 #' @return Coefficients and equations extracted from the model in \code{\link{linreg}} and returned as a named vector.
 #'
 #' @examples

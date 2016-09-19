@@ -1,7 +1,8 @@
 #' Extract Fitted Values from linreg object.
 #' 
 #' \code{pred} returns the fitted values of the regression model calculated by the \code{\link{linreg}} function.
-#' @param x is an object of the class \code{linreg}
+#' @param object An object of class \code{linreg} 
+#' @param ... other arguments.
 #' @return A numeric vector of fitted values extracted from the model in \code{\link{linreg}}.
 #'
 #' @examples
@@ -11,6 +12,6 @@
 
 
 predict.linreg<- function(object, ...){
-  pred<- as.vector(x$fitted)
+  pred<- as.vector(object$fitted)
   return(pred)
 }

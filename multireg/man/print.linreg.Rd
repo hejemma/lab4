@@ -7,7 +7,9 @@
 \method{print}{linreg}(x, ...)
 }
 \arguments{
-\item{x}{is an object of the class \code{linreg}}
+\item{x}{An object of class \code{linreg}}
+
+\item{...}{other arguments.}
 }
 \value{
 Coefficients and equations extracted from the model in \code{\link{linreg}} and returned as a named vector.

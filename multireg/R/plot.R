@@ -3,7 +3,11 @@
 #' The function plots the residuals versus fitted values, and the standardized residuals
 #' versus the fitted value 
 #' @param x An object of class linreg.
+#' @param ... other arguments.
 #' @return A two in one plot over residuals versus fitted values.
+#' @import ggplot2
+#' @import gridExtra
+#' @import graphics
 #' @examples
 #' plot(x=linreg)
 #' @export

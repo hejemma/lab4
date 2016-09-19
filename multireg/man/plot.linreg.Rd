@@ -8,6 +8,8 @@
 }
 \arguments{
 \item{x}{An object of class linreg.}
+
+\item{...}{other arguments.}
 }
 \value{
 A two in one plot over residuals versus fitted values.

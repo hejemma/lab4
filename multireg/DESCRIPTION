@@ -8,9 +8,11 @@ Maintainer: Emma Wallentinsson <emmwa513@student.liu.se>
 Description: This package contains functions for fitting linear regression
     models using the Ordinary Least Square Method.
 License: Advanced R-programmin Course
-Depends:
+Imports:
     ggplot2,
-    gridExtra 
+    gridExtra, 
+    stats,
+    graphics
 Suggests:
     testthat,
     knitr,
