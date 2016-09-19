@@ -17,6 +17,6 @@ The function plots the residuals versus fitted values, and the standardized resi
 versus the fitted value
 }
 \examples{
-plot(argument=linreg)
+plot(x=linreg)
 }
 
