@@ -18,4 +18,3 @@ coef.linreg<- function(x){
 }
 
 
-

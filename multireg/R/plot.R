@@ -10,12 +10,11 @@
 
 
 
+plot<- function(x) UseMethod("plot")
 
-
-
-plot.linreg<-function(argument){
-  plotdf<-data.frame(Fitted=argument$fitted,
-                     Residuals=argument$residuals)# select the relevant data and make df
+plot.linreg<-function(x){
+  plotdf<-data.frame(Fitted=x$fitted,
+                     Residuals=x$residuals)# select the relevant data and make df
   #coefdf<-data.frame(Coef=argument$coefficients)  
   
   p<- ggplot(plotdf)
@@ -24,7 +23,7 @@ plot.linreg<-function(argument){
     geom_hline(yintercept=0, col="black", linetype="dashed") # the dashed black line
   
   
-  resstd<-sqrt(argument$residual_variance) # std of residuals 
+  resstd<-sqrt(x$residual_variance) # std of residuals 
   std_res<-(plotdf$Residuals)/resstd  #standardized residuals 
   
   
