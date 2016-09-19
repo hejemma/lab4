@@ -5,7 +5,7 @@
 #' @param argument An object of class linreg.
 #' @return A two in one plot over residuals versus fitted values.
 #' @examples
-#' plot(argument=linreg)
+#' plot(x=linreg)
 #' @export
 
 

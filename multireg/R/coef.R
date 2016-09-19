@@ -23,4 +23,3 @@ coef.linreg<- function(x){
   return(coef)
 }
 
-
