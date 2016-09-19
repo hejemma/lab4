@@ -5,15 +5,12 @@
 #' @return A named vector.
 #' @examples
 #' x<- linreg(formula= Sepal.Width ~ Sepal.Length, data= iris)
-#' coef(x)
+#' pred(x)
 #' @export
 
-
-pred<- function(x) UseMethod("pred")
-
 pred.linreg<- function(x){
-  pred<- as.vector(x$"fitted values")
-  return(pred)
+  fit<- as.vector(x$fitted)
+  return(fit)
 }
 
 

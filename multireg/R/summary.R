@@ -1,5 +1,3 @@
-summary<- function(x) UseMethod("summary")
-
 summary.linreg<- function(x){
   summary<- summary(x)
   #sum<- sum$coefficients[,-1]

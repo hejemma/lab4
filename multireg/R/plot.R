@@ -9,9 +9,6 @@
 #' @export
 
 
-
-plot<- function(x) UseMethod("plot")
-
 plot.linreg<-function(x){
   plotdf<-data.frame(Fitted=x$fitted,
                      Residuals=x$residuals)# select the relevant data and make df

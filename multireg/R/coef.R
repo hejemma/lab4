@@ -13,10 +13,7 @@
 #' x<- linreg(formula= Sepal.Width ~ Sepal.Length, data= iris)
 #' coef(x)
 #' @export
-
-
-coef<- function(x) UseMethod("coef")
-
+  
 coef.linreg<- function(x){
   coef<- as.vector(x$coefficients)
   names(coef)<- rownames(x$coefficients)
