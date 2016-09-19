@@ -11,11 +11,14 @@
 
 
 summary.linreg<- function(x){
-  summary<- summary(x)
-  #sum<- sum$coefficients[,-1]
-  #sigma<- sum$sigma
-  #df<- sum$df
-  #result<- list("call"=call,"Coefficients"=sum,"Sigma"=sigma, "DF"=df)
-  return(summary)
+  coef<-x$coefficients
+  stderr<-sqrt(diag(x$variance_of_regression_coefficent))
+  tval<-x$tvalue
+  pval<-x$pvalue
+  deg<-x$df
+  stdres<-sqrt(x$residual_variance)
+  dataf<-data.frame("Coefficients"=coef, "Stderror"=stderr,"p-value"=pval,"t-value"=tval)
+  result<-list(dataf,"df"=deg,"standard error of residulals"=stdres)
+  return(result)
 }
 

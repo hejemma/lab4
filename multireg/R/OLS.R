@@ -87,7 +87,7 @@ linreg<- function(formula, data){
   statobj<-list("coefficients"=B_hat,"fitted"=y_hat,"residuals"=e_hat,
                 "df"=df,"residual_variance"=sigma2_hat,
                 "variance_of_regression_coefficent"=var_B_hat,
-                "t-value"=t_beta,"pvalue"=pval)
+                "tvalue"=t_beta,"pvalue"=pval)
   
   ### making obbject of class linreg 
   
