@@ -12,7 +12,7 @@
 
 <meta name="author" content="Emma Wallentinson and Zaida Liendeborg" />
 
-<meta name="date" content="2016-09-19" />
+<meta name="date" content="2016-09-20" />
 
 <title>multireg package</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">multireg package</h1>
 <h4 class="author"><em>Emma Wallentinson and Zaida Liendeborg</em></h4>
-<h4 class="date"><em>2016-09-19</em></h4>
+<h4 class="date"><em>2016-09-20</em></h4>
 
 
 
@@ -93,7 +93,10 @@ linreg_object&lt;-<span class="kw">linreg</span>(<span class="dt">formula =</spa
 <span class="kw">print</span>(linreg_object) <span class="co"># prints the equation and the beta coefficients </span>
 <span class="kw">summary</span>(linreg_object) <span class="co"># an output similar to the summary() statement of lm-objects. </span></code></pre></div>
 <p>An example of the <strong>summary()</strong> function for class <strong>linreg</strong>:</p>
-<pre><code>## [[1]]
+<pre><code>## $formula
+## Sepal.Width ~ Sepal.Length
+## 
+## $Coefficients
 ##              Coefficients   Stderror   p.value   t.value
 ## (Intercept)     3.4189468 0.25442326 0.0000000 13.438028
 ## Sepal.Length   -0.0618848 0.04311289 0.1532938 -1.435413
@@ -102,10 +105,7 @@ linreg_object&lt;-<span class="kw">linreg</span>(<span class="dt">formula =</spa
 ## [1] 147
 ## 
 ## $`standard error of residulals`
-## [1] 0.435778
-## 
-## $formula
-## Sepal.Width ~ Sepal.Length</code></pre>
+## [1] 0.435778</code></pre>
 </div>
 <div id="the-plot-function" class="section level2">
 <h2>The plot function</h2>
