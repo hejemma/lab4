@@ -20,3 +20,19 @@ library(gridExtra)
 plot(linreg_object)
 
 
+## ---- echo=FALSE---------------------------------------------------------
+coef(linreg_object)
+
+
+## ---- eval=FALSE---------------------------------------------------------
+#  resid(linreg_object)
+#  
+
+## ---- eval=FALSE---------------------------------------------------------
+#  predict(linreg_object)
+#  
+
+## ---- echo=FALSE---------------------------------------------------------
+print(linreg_object)
+
+

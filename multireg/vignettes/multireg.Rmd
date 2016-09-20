@@ -21,7 +21,7 @@ linreg_object<-linreg(formula = Sepal.Width ~ Sepal.Length, data= iris)
 names(linreg_object)
 ```
 
-Different values from the object of class **linreg** can be obtained using following functions: 
+Different S3 methods were implemented in the **linreg** object and used to extract or plot results generated from the  **linreg** fucntion. These methods are as follows: 
 
 ```{r, eval=FALSE}
 coef(linreg_object) # prints the coefficients
@@ -31,6 +31,8 @@ print(linreg_object) # prints the equation and the beta coefficients
 summary(linreg_object) # an output similar to the summary() statement of lm-objects. 
 ```
 
+## The summary method
+
 An example of the **summary()** function for class **linreg**: 
 
 ```{r, echo=FALSE}
@@ -38,9 +40,9 @@ summary(linreg_object)
 
 ```
 
-## The plot function
+## The plot method
 
-An object of class **linreg** can be visualized in two different plots. The first one plots the residuals against the fitted values, and the second plots the square root of the absolute value of the standardized residuals aganst the fitted values. The way to do this is wih the **plot()** function: 
+An object of class **linreg** can be visualized in two different plots. The first one plots the residuals against the fitted values, and the second plots the square root of the absolute value of the standardized residuals aganst the fitted values. The way to do this is wih the **plot()** method: 
 
 ```{r, fig.width=7, fig.height=4}
 library(ggplot2)
@@ -49,4 +51,38 @@ plot(linreg_object)
 
 ```
 
+## The coef method
 
+**coef** takes an object of class **linreg** and prints out the beta coefficients estimates calculated by the regression model fitted by the **linreg** function. Example of application of **coef()**:
+
+```{r, echo=FALSE}
+coef(linreg_object)
+
+```
+
+## The resid method
+
+**resid** method extracts the residuals of the fitted regression model by the **linreg**. Residuals are presented in a numeric vector. 
+
+```{r, eval=FALSE}
+resid(linreg_object)
+
+```
+
+## The predict method
+
+The fitted values produced by the regression model can be extracted by using **predict()**. An example of the method application is shown below:
+
+```{r, eval=FALSE}
+predict(linreg_object)
+
+```
+
+## The print method
+
+By using **print()**, the response variable and the explanatory variables used by the regression model prints out. It also gives the estimates of the beta coefficients. See example below: 
+
+```{r, echo=FALSE}
+print(linreg_object)
+
+```
