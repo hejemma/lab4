@@ -1,0 +1,52 @@
+---
+title: "multireg package"
+author: "Emma Wallentinson and Zaida Liendeborg"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{multireg package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+The multireg package calculates simple and multipel linear regression. The **linreg** function fits the regressen model using the ordinary least square method. Thereon, you get an object of class **linreg** containing the estimated beta coefficients with variance, residuals and their variance, fitted values, t-values, p-values and degrees of freedom. The residuals and the standardized residuals in the object of class **linreg** can also be plotted
+against the fitted values. 
+
+## The linreg function
+Below is an example using the **linreg** function with the iris data set. 
+```{r}
+library(multireg)
+linreg_object<-linreg(formula = Sepal.Width ~ Sepal.Length, data= iris)
+names(linreg_object)
+```
+
+Different values from the object of class **linreg** can be obtained using following functions: 
+
+```{r, eval=FALSE}
+coef(linreg_object) # prints the coefficients
+predict(linreg_object) # prints the fitted values
+resid(linreg_object)# # prints the resiudals 
+print(linreg_object) # prints the equation and the beta coefficients 
+summary(linreg_object) # an output similar to the summary() statement of lm-objects. 
+```
+
+An example of the **summary()** function for class **linreg**: 
+
+```{r, echo=FALSE}
+summary(linreg_object)
+
+```
+
+## The plot function
+
+An object of class **linreg** can be visualized in two different plots. The first one plots the residuals against the fitted values, and the second plots the square root of the absolute value of the standardized residuals aganst the fitted values. The way to do this is wih the **plot()** function: 
+
+```{r, fig.width=7, fig.height=4}
+library(ggplot2)
+library(gridExtra)
+plot(linreg_object)
+
+```
+
+
