@@ -24,3 +24,4 @@ test_that("Testing linreg()", {
   }
 )
 
+
