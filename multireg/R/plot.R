@@ -15,13 +15,12 @@
 
 
 plot.linreg<-function(x, ...){
-  plotdf<-data.frame(Fitted=x$fitted,
-                     Residuals=x$residuals)# select the relevant data and make df
-  #coefdf<-data.frame(Coef=argument$coefficients)  
+  plotdf<-data.frame(Fitted= x$fitted, Residuals= x$residuals)# select the relevant data and make df
+
   
-  p<- ggplot(plotdf)
-  p<- p + geom_point(aes(x=Fitted, y=Residuals)) + ggtitle("Residual vs Fitted Plot")+theme_bw()
-  p<- p + stat_smooth(method="loess") + 
+  p<- ggplot(plotdf, aes(x=Fitted, y= Residuals))
+  p<- p + geom_point() + ggtitle("Residual vs Fitted Plot")+theme_bw()
+  p<- p + geom_smooth(color="red", method="lm", se=F) + 
     geom_hline(yintercept=0, col="black", linetype="dashed") # the dashed black line
   
   
@@ -29,9 +28,8 @@ plot.linreg<-function(x, ...){
   std_res<-(plotdf$Residuals)/resstd  #standardized residuals 
   
   
-  p2<- ggplot(plotdf, aes(x=Fitted, y=sqrt(abs(std_res)))) + geom_point() +
+  p2<- ggplot(plotdf, aes(x=Fitted, y=sqrt(abs(std_res)))) + geom_point() + geom_smooth(color="red", method="lm", se=F)+
     ggtitle("Scale Location") + ylab(expression(sqrt("|Standardized residuals")))+ theme_bw()
   grid.arrange(p,p2,ncol=1)
   
 }
-# få dit den röda linjejäveln
