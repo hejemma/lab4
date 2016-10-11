@@ -1,6 +1,8 @@
 
 ridgereg<- function(formula, data, lambda){
   
+  stopFunction(formula, data, lambda)
+  
   # Create a model matrix X
   varX<- all.vars(formula[[3]])  #kolla vilka som ska va i model matrix
   form<- as.formula(paste("~",paste(varX,collapse="+"))) # gör formula till model matrix
@@ -10,7 +12,7 @@ ridgereg<- function(formula, data, lambda){
   X<- modmatX[,-1] 
   X<- apply(X, 2, function(x) (x-mean(x))/sd(x))
   modmatX[,varX]<- X
-   
+  
   # skapa Y matris 
   y<- all.vars(formula)[1]   #hitta vilken dependent Y 
   which_y<- which(colnames(data) == y) # vilken columen är Y i data 
