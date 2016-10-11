@@ -8,11 +8,7 @@ ridgereg<- function(formula, data, lambda){
   
   #Normalisera xvar #
   X<- modmatX[,-1] 
-  
-  for(i in 1:ncol(X)){
-    X[,i]<- (X[,i] - mean(X[,i])) / sqrt(var(X[,i]))
-  }
-  
+  X<- apply(X, 2, function(x) (x-mean(x))/sd(x))
   modmatX[,varX]<- X
    
   # skapa Y matris 
@@ -20,14 +16,14 @@ ridgereg<- function(formula, data, lambda){
   which_y<- which(colnames(data) == y) # vilken columen är Y i data 
   Y<- as.matrix(data[,which_y]) # plocka ut Y from data
    
-  tmodmatX<- t(modmatX) # transpose model matrix modmatX
-    
+  # transpose model matrix modmatX
+  tmodmatX<- t(modmatX)
+  
   # skapa identitets matris #
   I<- diag(nrow(tmodmatX))
   
   # beräkna ridge koefficienter #
   B_hat<- solve((tmodmatX %*% modmatX) + (lambda*I)) %*% (tmodmatX %*% Y)
-     
   B_hat<- as.vector(B_hat)
   names(B_hat)<- colnames(modmatX)
   
