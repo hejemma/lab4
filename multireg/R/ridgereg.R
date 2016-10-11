@@ -22,21 +22,12 @@ ridgereg<- function(formula, data, lambda){
    
   tmodmatX<- t(modmatX) # transpose model matrix modmatX
     
+  # skapa identitets matris #
+  I<- diag(nrow(tmodmatX))
+  
   # beräkna ridge koefficienter #
-  
-  I<- diag(nrow(tmodmatX)) 
-  
   B_hat<- solve((tmodmatX %*% modmatX) + (lambda*I)) %*% (tmodmatX %*% Y)
      
-  # skapa identitets matris #
-  
-    
-  #inv_tmodmatX<- solve(t_modmat + (lambda * I))
-    
-  #tmodmatXY<- tmodmatX %*% Y
-    
-  #B_hat<- inv_tmodmatX %*% tmodmatXY
-  
   B_hat<- as.vector(B_hat)
   names(B_hat)<- colnames(modmatX)
   
