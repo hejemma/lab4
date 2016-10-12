@@ -14,6 +14,8 @@
 
 
 predict.ridgereg<- function(object, newdata,...){
+  stopifnot(inherits(object, "ridgereg"))
+  
   if(missing(newdata)) {
     predd<-as.vector(object$Fitted_values)
   }else{
