@@ -1,3 +1,4 @@
+
 test_that("Testing linreg()", {
   data(iris)
   formel<-Petal.Length~Sepal.Width
@@ -31,5 +32,4 @@ test_that("Testing linreg()", {
   
   }
 )
-
 
