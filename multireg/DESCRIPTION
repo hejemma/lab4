@@ -12,7 +12,11 @@ Depends:
     ggplot2,
     gridExtra, 
     stats,
-    graphics
+    graphics,
+    maps,
+    maptools,
+    sp,
+    MASS
 Suggests:
     testthat,
     knitr,

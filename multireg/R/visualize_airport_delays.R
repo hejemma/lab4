@@ -1,12 +1,17 @@
+#' Visualizing using a choropleth map the mean total flight delays. 
+#' 
+#' The function visualizes the mean total flight delays from different aiports in the US. By using the data \code{airports} and \code{flights} from the package \code{\link{nycflights13}}, the mean total time delays were calculated.
+#' 
+#' @return A ggplot object visualizes into a choropleth map.
+#' 
+#' @export
 
 
 visualize_airports_delay<- function(){
+  
 library(dplyr)
-library(nycflights13)
 library(ggplot2)
-
-data(airports)
-data(flights)
+library(nycflights13)  
 
 # subsetting the important variables for the analysis #
 airports_sub<- select(airports, faa, name, lat, lon)
@@ -14,7 +19,8 @@ flights_sub<- select(flights, dest, dep_delay, arr_delay)
 
 # Total time of delays #
 new_flights<- mutate(flights_sub, total_delay = dep_delay + arr_delay)
-new_flights<- filter(new_flights, !is.na(total_delay))
+
+# Filtering NAs#
 
 # Merging the two data frames #
 airFlight<- inner_join(airports_sub, new_flights, by=c("faa"="dest"))

@@ -10,6 +10,8 @@ ridgereg(formula, data, lambda = 0)
 \item{formula}{A regression formula.}
 
 \item{data}{A dataframe containing the variables used in formula.}
+
+\item{Optional}{choiche of lambda, default = 0.}
 }
 \value{
 An object of class ridgereg.

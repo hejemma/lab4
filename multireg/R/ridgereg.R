@@ -3,7 +3,7 @@
 #' The function calculates the regression coefficients, and fitted values 
 #' @param formula A regression formula.
 #' @param data A dataframe containing the variables used in formula.
-#' @ Optional choiche of lambda, default = 0.
+#' @param Optional choiche of lambda, default = 0.
 #' @return An object of class ridgereg.
 #' @examples
 #' ridgereg(formula= Sepal.Width ~ Sepal.Length, data= iris)

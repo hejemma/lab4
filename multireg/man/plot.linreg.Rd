@@ -4,7 +4,7 @@
 \alias{plot.linreg}
 \title{Plot residuals.}
 \usage{
-\method{plot}{linreg}(x, ...)
+plot.linreg(x, ...)
 }
 \arguments{
 \item{x}{An object of class linreg.}
