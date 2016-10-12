@@ -1,17 +1,22 @@
 
-ridgereg<- function(formula, data, lambda){
+ridgereg<- function(formula, data, lambda=0){
   
   stopFunction(formula, data, lambda)
   
   # Create a model matrix X
-  varX<- all.vars(formula[[3]])  #kolla vilka som ska va i model matrix
+  varX<- all.vars(formula[[3]]) #kolla vilka som ska va i model matrix
+  
+  #X<- data[,varX] 
+  #X<- apply(X, 2, function(x) (x-mean(x))/sd(x))
+  #data[,varX]<- X
+  
   form<- as.formula(paste("~",paste(varX,collapse="+"))) # gör formula till model matrix
   modmatX<- model.matrix(form, data=data) # model matrix X 
   
   #Normalisera xvar #
-  X<- modmatX[,-1] 
-  X<- apply(X, 2, function(x) (x-mean(x))/sd(x))
-  modmatX[,varX]<- X
+  #X<- modmatX[,-1] 
+  #X<- apply(X, 2, function(x) (x-mean(x))/sd(x))
+  #modmatX[,varX]<- X
   
   # skapa Y matris 
   y<- all.vars(formula)[1]   #hitta vilken dependent Y 
@@ -31,7 +36,7 @@ ridgereg<- function(formula, data, lambda){
   
   # beräkna fitted values #
   y_hat<- modmatX %*% B_hat
-    
+
   ls<- list(Call= match.call(), Coefficients = B_hat, Fitted_values= as.vector(y_hat))
   class(ls)<- "ridgereg"
   return(ls)
