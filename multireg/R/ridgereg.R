@@ -1,5 +1,5 @@
 
-ridgereg<- function(formula, data, lambda){
+ridgereg<- function(formula, data, lambda=0){
   
   stopFunction(formula, data, lambda)
   
@@ -31,8 +31,9 @@ ridgereg<- function(formula, data, lambda){
   
   # beräkna fitted values #
   y_hat<- modmatX %*% B_hat
+  formu1<-formula
     
-  ls<- list(Call= match.call(), Coefficients = B_hat, Fitted_values= as.vector(y_hat))
+  ls<- list(Call= match.call(), Coefficients = B_hat, Fitted_values= as.vector(y_hat), Formula=formu1)
   class(ls)<- "ridgereg"
   return(ls)
 }
