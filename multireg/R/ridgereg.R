@@ -36,14 +36,12 @@ ridgereg<- function(formula, data, lambda=0){
   
   # beräkna fitted values #
   y_hat<- modmatX %*% B_hat
-<<<<<<< HEAD
 
-  ls<- list(Call= match.call(), Coefficients = B_hat, Fitted_values= as.vector(y_hat))
-=======
+
   formu1<-formula
     
   ls<- list(Call= match.call(), Coefficients = B_hat, Fitted_values= as.vector(y_hat), Formula=formu1)
->>>>>>> b46f406d61affa218363afac847b7fb529d9922a
   class(ls)<- "ridgereg"
+  
   return(ls)
 }

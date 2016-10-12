@@ -1,6 +1,6 @@
 ---
-title: "Vignette Title"
-author: "Vignette Author"
+title: "Ridgereg(), caret and dplyr"
+author: "Zaida Liendeborg, Emma Wallentinsson"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -9,50 +9,61 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+This vignette tackles about the **ridgereg()** function and a short description of methods implemented in the function. The vignette shows example of predictive modelling for **BostonHousing** from **mlbench** package using both **caret** and the **ridgereg()** function.   
 
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+## Ridgereg() function
 
-## Vignette Info
+The **ridgereg()** function fits a ridgre regression using the Ordinary Least Squares method. The function takes arguments **formula, data and lambda.** Formula should be the regression equation, it means to say both the response and the predictors. There should also be a dataset where the variables are taken from and a specified lambda value to be used to find the true parameters.
 
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
+The function returns an list of a class **ridgereg** containing the regression equation used, the estimates of the beta coefficients and the fitted values. 
 
-## Styles
-
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
-
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
-
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
+```{r, echo=FALSE}
+data(iris)
+ridgeobject<- ridgereg(formula= Sepal.Length ~ Petal.Length + Petal.Width,
+                       data=iris, lambda=0)
+ridgeobject
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
+There are three different methods implemented on the function and they will be discussed in the following sections:  
 
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
+## The coef.ridgereg method
 
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
+This **coef()** returns a name vector with the estimates of the beta coefficients from the fitted ridge regression. It only takes an object of a class ridgereg. 
 
-## More Examples
+```{r, echo=FALSE}
+coef(ridgeobject)
 
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
 ```
 
-Also a quote using `>`:
+## The print.ridgereg method
 
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+By using **print()**, the response variable and the explanatory variables used by the ridge regression model prints out. It also gives the estimates of the beta coefficients. See example below: 
+
+```{r, echo=FALSE}
+print(ridgeobject)
+
+```
+
+## The predict.ridgereg method
+
+The **predict()** method simply gives the predicted values of the fitted ridge regression model. It takes two arguments such as **object and newdata**. Object should be a ridgereg object and newdata is an optional data frame in which the prediction of new values would be based on. If there is no given new dataset, the predict function will simply return a numeric vector with the fitted values. 
+
+To show how predict works, let's take iris data as an example. First let's divide the data into two sets: **training and test** sets.
+
+```{r, echo=FALSE}
+data(iris)
+train<- iris[1:75,]
+test<- iris[76:150,]
+
+pred_ridgeobject<- ridgereg(formula= Sepal.Length ~ Petal.Length + Petal.Width,
+                       data=train, lambda=0)
+
+new_pred<- predict(pred_ridgeobject, newdata=test)
+
+head(new_pred)
+
+```
+
+
+
+
