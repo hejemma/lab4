@@ -4,7 +4,7 @@ author: "Zaida Liendeborg, Emma Wallentinsson"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Ridgereg}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,6 +18,7 @@ The **ridgereg()** function fits a ridgre regression using the Ordinary Least Sq
 The function returns an list of a class **ridgereg** containing the regression equation used, the estimates of the beta coefficients and the fitted values. 
 
 ```{r, echo=FALSE}
+library(multireg)
 data(iris)
 ridgeobject<- ridgereg(formula= Sepal.Length ~ Petal.Length + Petal.Width,
                        data=iris, lambda=0)
@@ -65,5 +66,7 @@ head(new_pred)
 ```
 
 
+## Predictive model for the Bostonhousing data set
 
+A predictive model is created for the 
 

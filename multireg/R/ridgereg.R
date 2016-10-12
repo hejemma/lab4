@@ -1,3 +1,17 @@
+#' Computing bridge regression using ordinary least squares.
+#' 
+#' The function calculates the regression coefficients, and fitted values 
+#' @param formula A regression formula.
+#' @param data A dataframe containing the variables used in formula.
+#' @ Optional choiche of lambda, defalut = 0.
+#' @return An object of class ridgereg.
+#' @examples
+#' ridgereg(formula= Sepal.Width ~ Sepal.Length, data= iris)
+#' ridgereg(formula = eruptions ~ waiting, data= faithful)
+#' @export
+
+
+
 
 ridgereg<- function(formula, data, lambda=0){
   
