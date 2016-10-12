@@ -110,4 +110,18 @@ defaultSummary(modvaluesFF)
 
 .. which means THAT.. INSERT NÅT BRA HÄR OM UTSKRIFTEN.. 
 
+# 4 
+
+
+# 5 
+
+ten folds cross val när 4 väl är färdig.. 
+
+
+fitControl <- trainControl(method = "repeatedcv",number = 10,repeats = 10)
+
+train(medv~. data=training, method="ridgereg", trControl=fitControl)
+
+
+
 
