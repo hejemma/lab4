@@ -41,7 +41,8 @@ ridgereg<- function(formula, data, lambda=0){
   tmodmatX<- t(modmatX)
   
   # skapa identitets matris #
-  I<- diag(nrow(tmodmatX))
+  #I<- diag(nrow(tmodmatX))
+  I<-diag(nrow(solve(tmodmatX %*% modmatX)))
   
   # beräkna ridge koefficienter #
   B_hat<- solve((tmodmatX %*% modmatX) + (lambda*I)) %*% (tmodmatX %*% Y)
