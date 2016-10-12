@@ -3,7 +3,7 @@
 #' The function calculates the regression coefficients, and fitted values 
 #' @param formula A regression formula.
 #' @param data A dataframe containing the variables used in formula.
-#' @ Optional choiche of lambda, defalut = 0.
+#' @ Optional choiche of lambda, default = 0.
 #' @return An object of class ridgereg.
 #' @examples
 #' ridgereg(formula= Sepal.Width ~ Sepal.Length, data= iris)
@@ -20,17 +20,13 @@ ridgereg<- function(formula, data, lambda=0){
   # Create a model matrix X
   varX<- all.vars(formula[[3]]) #kolla vilka som ska va i model matrix
   
-  #X<- data[,varX] 
-  #X<- apply(X, 2, function(x) (x-mean(x))/sd(x))
-  #data[,varX]<- X
-  
   form<- as.formula(paste("~",paste(varX,collapse="+"))) # gör formula till model matrix
   modmatX<- model.matrix(form, data=data) # model matrix X 
   
   #Normalisera xvar #
-  #X<- modmatX[,-1] 
-  #X<- apply(X, 2, function(x) (x-mean(x))/sd(x))
-  #modmatX[,varX]<- X
+  X<- modmatX[,-1] 
+  X<- apply(X, 2, function(x) (x-mean(x))/sd(x))
+  modmatX[,varX]<- X
   
   # skapa Y matris 
   y<- all.vars(formula)[1]   #hitta vilken dependent Y 
