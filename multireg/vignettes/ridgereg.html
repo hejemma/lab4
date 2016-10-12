@@ -18,6 +18,44 @@
 
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
 
 
 
@@ -41,8 +79,6 @@
 <h2>Ridgereg() function</h2>
 <p>The <strong>ridgereg()</strong> function fits a ridgre regression using the Ordinary Least Squares method. The function takes arguments <strong>formula, data and lambda.</strong> Formula should be the regression equation, it means to say both the response and the predictors. There should also be a dataset where the variables are taken from and a specified lambda value to be used to find the true parameters.</p>
 <p>The function returns an list of a class <strong>ridgereg</strong> containing the regression equation used, the estimates of the beta coefficients and the fitted values.</p>
-<pre><code>## Loading required package: ggplot2</code></pre>
-<pre><code>## Loading required package: gridExtra</code></pre>
 <p>There are three different methods implemented on the function and they will be discussed in the following sections:</p>
 </div>
 <div id="the-coef.ridgereg-method" class="section level2">
@@ -69,8 +105,27 @@
 <pre><code>## [1] 5.891570 6.224989 6.288467 5.940514 5.279019 5.494673</code></pre>
 </div>
 <div id="predictive-model-for-the-bostonhousing-data-set" class="section level2">
-<h2>Predictive model for the Bostonhousing data set</h2>
-<p>A predictive model is created for the</p>
+<h2>Predictive model for the BostonHousing data set</h2>
+<p>A predictive model is created for the <em>BostonHpusing</em> data set located in the <strong>mlbench</strong> package. First, the data is splitted in a training and test set using the <strong>caret</strong> package. The traning part is set to 75 % of the data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mlbench)
+<span class="kw">data</span>(<span class="st">&quot;BostonHousing&quot;</span>) <span class="co">#load data</span>
+<span class="kw">library</span>(caret)</code></pre></div>
+<pre><code>## Loading required package: lattice</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inTrain &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(<span class="dt">y =</span> BostonHousing$medv,  <span class="dt">p =</span> .<span class="dv">75</span>, <span class="dt">list =</span> <span class="ot">FALSE</span>) <span class="co">#data partitioning</span>
+
+training &lt;-<span class="st"> </span>BostonHousing[ inTrain,] <span class="co">#training set </span>
+testing &lt;-<span class="st"> </span>BostonHousing[-inTrain,] <span class="co"># test set </span></code></pre></div>
+<p>A linear regression model and a linear regression model with forward selection of covariates is fitted to the training set.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lmFit&lt;-<span class="kw">train</span>(medv~., <span class="dt">data =</span> training, <span class="dt">method=</span><span class="st">&quot;lm&quot;</span>)<span class="co"># linear regression</span>
+lmFitForw&lt;-<span class="kw">train</span>(medv~., <span class="dt">data=</span>training, <span class="dt">method=</span><span class="st">&quot;leapForward&quot;</span>)<span class="co"># forward selection</span></code></pre></div>
+<pre><code>## Loading required package: leaps</code></pre>
+<p>The evaluating of the performance of the models are being done on the linear regression model:</p>
+<pre><code>##     RMSE Rsquared 
+## 4.834995 0.708644</code></pre>
+<p>And on the fast forward regression model:</p>
+<pre><code>##      RMSE  Rsquared 
+## 5.2144718 0.6611148</code></pre>
+<p>.. which means THAT.. INSERT NÅT BRA HÄR OM UTSKRIFTEN..</p>
 </div>
 
 

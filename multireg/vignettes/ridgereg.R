@@ -26,3 +26,32 @@ new_pred<- predict(pred_ridgeobject, newdata=test)
 head(new_pred)
 
 
+## ------------------------------------------------------------------------
+library(mlbench)
+data("BostonHousing") #load data
+library(caret)
+inTrain <- createDataPartition(y = BostonHousing$medv,  p = .75, list = FALSE) #data partitioning
+
+training <- BostonHousing[ inTrain,] #training set 
+testing <- BostonHousing[-inTrain,] # test set 
+
+
+## ------------------------------------------------------------------------
+
+lmFit<-train(medv~., data = training, method="lm")# linear regression
+lmFitForw<-train(medv~., data=training, method="leapForward")# forward selection
+
+## ---- echo=FALSE---------------------------------------------------------
+#linear regression
+predicted<- predict(lmFit)
+modvalues<- data.frame(obs=training$medv, pred=predicted) #df with observed and predicted
+defaultSummary(modvalues)
+
+
+## ---- echo=FALSE---------------------------------------------------------
+#fast forward regression 
+predictedFF<- predict(lmFitForw)
+modvaluesFF<- data.frame(obs=training$medv, pred=predictedFF) #df with observed and predicted
+defaultSummary(modvaluesFF)
+
+

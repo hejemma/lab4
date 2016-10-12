@@ -66,7 +66,62 @@ head(new_pred)
 ```
 
 
-## Predictive model for the Bostonhousing data set
+## Predictive model for the BostonHousing data set
 
-A predictive model is created for the 
+A predictive model is created for the *BostonHpusing* data set located in the **mlbench** package. First, the data is splitted in a training and test set using the **caret** package. The traning part is set to 75 % of the data. 
+```{r}
+library(mlbench)
+data("BostonHousing") #load data
+library(caret)
+inTrain <- createDataPartition(y = BostonHousing$medv,  p = .75, list = FALSE) #data partitioning
+
+training <- BostonHousing[ inTrain,] #training set 
+testing <- BostonHousing[-inTrain,] # test set 
+
+```
+
+A linear regression model and a linear regression model with forward selection of covariates is fitted to the training set. 
+
+
+```{r}
+
+lmFit<-train(medv~., data = training, method="lm")# linear regression
+lmFitForw<-train(medv~., data=training, method="leapForward")# forward selection
+```
+
+The evaluating of the performance of the models are being done on the linear regression model: 
+
+```{r, echo=FALSE}
+#linear regression
+predicted<- predict(lmFit)
+modvalues<- data.frame(obs=training$medv, pred=predicted) #df with observed and predicted
+defaultSummary(modvalues)
+
+```
+
+And on the fast forward regression model: 
+```{r, echo=FALSE}
+#fast forward regression 
+predictedFF<- predict(lmFitForw)
+modvaluesFF<- data.frame(obs=training$medv, pred=predictedFF) #df with observed and predicted
+defaultSummary(modvaluesFF)
+
+```
+
+.. which means THAT.. INSERT NÅT BRA HÄR OM UTSKRIFTEN.. 
+
+# 4 
+
+
+# 5 
+
+ten folds cross val när 4 väl är färdig.. 
+
+
+fitControl <- trainControl(method = "repeatedcv",number = 10,repeats = 10)
+
+train(medv~. data=training, method="ridgereg", trControl=fitControl)
+
+
+
 
