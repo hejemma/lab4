@@ -30,33 +30,26 @@ mean_delay<- airFlight %>% group_by(faa) %>% summarise(total_mean = mean(total_d
 
 # Creating new data set for plotting. Total mean delay for every airport #
 airFlight_delay<- inner_join(airports_sub, mean_delay, by="faa")
-#airFlight_delay<- merge(airports_sub, mean_delay, by.x="faa" )
 
 # To get states name we use function latlong2state # 
 airFlight_delay$States<- latlong2state(airFlight_delay[,c("lon", "lat")])
 
-airFlight_delay <- airFlight_delay %>% select(States, total_mean, lon, lat) 
+airFlight_delay <- airFlight_delay %>% select(States,total_mean, lon, lat) 
 
 # Plotting the data #
-states<- map_data("state")
+world<- map_data("world")
 
-air_mapdata<- semi_join(airFlight_delay, states, by=c("States"="region")) 
+USA<- filter(world, region == c("USA", "Canada"))
 
-map_base<- ggplot() + 
-  geom_polygon(data = states, mapping = aes(x = long, y = lat, group=group),color = "gray", fill = "white")
 
-plot<- map_base + geom_point(data = air_mapdata, aes(x= lon, y=lat, color=total_mean)) +
+map_base<- ggplot() + coord_cartesian(xlim=c(-160,-45), ylim=c(min(USA$lat),65), expand=F)+
+  geom_polygon(data = USA, mapping = aes(x = long, y = lat, group=group),color = "gray", fill = "white") 
+  
+
+plot<- map_base + geom_point(data = airFlight_delay, aes(x= lon, y=lat, color=total_mean, size=total_mean)) +
   ggtitle("Mean total flight delays for different airports")
 
-noAxes<- theme(
-  axis.text = element_blank(),
-  axis.line = element_blank(),
-  axis.ticks = element_blank(),
-  panel.border = element_blank(),
-  panel.grid = element_blank(),
-  axis.title = element_blank()
-)
 
-plot + noAxes
+plot
 
 }
