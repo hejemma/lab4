@@ -68,7 +68,7 @@ head(new_pred)
 
 ## Predictive model for the BostonHousing data set
 
-A predictive model is created for the *BostonHpusing* data set located in the **mlbench** package. First, the data is splitted in a training and test set using the **caret** package. The traning part is set to 75 % of the data. 
+A predictive model is created for the *BostonHousing* data set located in the **mlbench** package. First, the data is splitted in a training and test set using the **caret** package. The traning part is set to 75 % of the data. 
 ```{r}
 library(mlbench)
 library(leaps)
@@ -111,13 +111,13 @@ defaultSummary(modvaluesFF)
 
 .. which means THAT.. INSERT NÅT BRA HÄR OM UTSKRIFTEN.. 
 
-# 4 
+## 4 
 
-install.packages("kernlab")
-library(kernlab)
+Now we fit a ridge regression model with our **ridgereg** function, different values of lambda. 
+```{r, echo=FALSE}
 lpRidgeReg <- list(type = "Regression",
-              library = "multireg",
-              loop = NULL) 
+                   library = "multireg",
+                   loop = NULL) 
 
 prm <- data.frame(parameter = "lambda",
                   class = "numeric",
@@ -139,36 +139,72 @@ grid <- function (x, y, len = NULL, search = "grid")
 
 lpRidgeReg$grid <- grid
 
-fit <- function(x, y, wts, param, lev, last, weights, classProbs, ...) { 
-  ksvm(x = as.matrix(x), y = y,
-       kernel = rbfdot,
-       kpar = list(param$lambda))
- }
- 
-lpRidgeReg$fit <- fit
+fitreg<-function(x,y,lambda,param,lev,last,classProbs,...){
+  
+  dat <- as.data.frame(x)
+  
+  respvector <- NULL
+  respname <- NULL
+  respnum <- NULL
+  
+  for(i in 1:ncol(x)){
+    if(identical(y,dat[,i])){
+      respvector <- dat[,i]
+      respname <- names(x)[i]
+      respnum <- i
+    }
+  }
+  
+  formula <- paste(respname,"~", sep="")
+  
+  if(ncol(x) > 1){
+    for(i in 1:ncol(x)){
+      if(i != respnum){
+        formula <- paste(formula, "+", names(dat)[i], sep="")
+      }
+    }
+  }
+  
+  formula <- as.formula(formula)
+  model <- multireg::ridgereg( formula = formula, data=dat,lambda= param$lambda)
+  return(model)
+}
+
+lpRidgeReg$fit<-fitreg
 
 pred <- function(modelFit, newdata, preProc = NULL, submodels = NULL){
- predict(modelFit, newdata)
+  predict(modelFit, newdata)
 }
-  
+
 lpRidgeReg$predict <- pred
 
 prob <- function(modelFit, newdata, preProc = NULL, submodels = NULL){
-   predict(modelFit, newdata, type="probabilities")
-
+  predict(modelFit, newdata, type="probabilities")
+  
 }
 
 lpRidgeReg$prob <- prob
 
-train(medv~., data=training, method=lpRidgeReg)
+
+##
+
+trainridge <- train(y=training$medv,x = training,method = lpRidgeReg)
+trainridge
+```
 
 
-# 5 
+This tells ut that the optimal value of lambda =0.. 
+
+
+## 5 
+
+Now, we are using 10 fold cross validation to find the best parameter lambda.VARNING.  
+
+```{r}
 fitControl <- trainControl(method = "repeatedcv", number = 10, repeats = 10)
-
-train(medv~., data=training, method=lpRidgeReg)
-
-
+trainridgecv <- train(y=training$medv,x = training,method = lpRidgeReg,
+                       trControl = fitControl)
+```
 
 
 

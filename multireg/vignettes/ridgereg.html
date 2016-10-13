@@ -79,13 +79,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2>Ridgereg() function</h2>
 <p>The <strong>ridgereg()</strong> function fits a ridgre regression using the Ordinary Least Squares method. The function takes arguments <strong>formula, data and lambda.</strong> Formula should be the regression equation, it means to say both the response and the predictors. There should also be a dataset where the variables are taken from and a specified lambda value to be used to find the true parameters.</p>
 <p>The function returns an list of a class <strong>ridgereg</strong> containing the regression equation used, the estimates of the beta coefficients and the fitted values.</p>
+<pre><code>## Loading required package: ggplot2</code></pre>
+<pre><code>## Loading required package: gridExtra</code></pre>
 <p>There are three different methods implemented on the function and they will be discussed in the following sections:</p>
 </div>
 <div id="the-coef.ridgereg-method" class="section level2">
 <h2>The coef.ridgereg method</h2>
 <p>This <strong>coef()</strong> returns a name vector with the estimates of the beta coefficients from the fitted ridge regression. It only takes an object of a class ridgereg.</p>
 <pre><code>##  (Intercept) Petal.Length  Petal.Width 
-##    5.8433333    0.9563983   -0.2435735</code></pre>
+##    4.1905824    0.5417772   -0.3195506</code></pre>
 </div>
 <div id="the-print.ridgereg-method" class="section level2">
 <h2>The print.ridgereg method</h2>
@@ -96,7 +98,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 
 ## $Coefficients
 ##  (Intercept) Petal.Length  Petal.Width 
-##    5.8433333    0.9563983   -0.2435735</code></pre>
+##    4.1905824    0.5417772   -0.3195506</code></pre>
 </div>
 <div id="the-predict.ridgereg-method" class="section level2">
 <h2>The predict.ridgereg method</h2>
@@ -116,7 +118,7 @@ new_pred&lt;-<span class="st"> </span><span class="kw">predict</span>(pred_ridge
 </div>
 <div id="predictive-model-for-the-bostonhousing-data-set" class="section level2">
 <h2>Predictive model for the BostonHousing data set</h2>
-<p>A predictive model is created for the <em>BostonHpusing</em> data set located in the <strong>mlbench</strong> package. First, the data is splitted in a training and test set using the <strong>caret</strong> package. The traning part is set to 75 % of the data.</p>
+<p>A predictive model is created for the <em>BostonHousing</em> data set located in the <strong>mlbench</strong> package. First, the data is splitted in a training and test set using the <strong>caret</strong> package. The traning part is set to 75 % of the data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mlbench)
 <span class="kw">library</span>(leaps)
 <span class="kw">data</span>(<span class="st">&quot;BostonHousing&quot;</span>) <span class="co">#load data</span>
@@ -130,33 +132,71 @@ testing &lt;-<span class="st"> </span>BostonHousing[-inTrain,] <span class="co">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lmFit&lt;-<span class="kw">train</span>(medv~., <span class="dt">data =</span> training, <span class="dt">method=</span><span class="st">&quot;lm&quot;</span>)<span class="co"># linear regression</span>
 lmFitForw&lt;-<span class="kw">train</span>(medv~., <span class="dt">data=</span>training, <span class="dt">method=</span><span class="st">&quot;leapForward&quot;</span>)<span class="co"># forward selection</span></code></pre></div>
 <p>The evaluating of the performance of the models are being done on the linear regression model:</p>
-<pre><code>##      RMSE  Rsquared 
-## 4.6430532 0.7643649</code></pre>
+<pre><code>##     RMSE Rsquared 
+## 4.580089 0.748034</code></pre>
 <p>And on the fast forward regression model:</p>
 <pre><code>##      RMSE  Rsquared 
-## 5.0264940 0.7238386</code></pre>
+## 5.0273609 0.6964193</code></pre>
 <p>.. which means THAT.. INSERT NÅT BRA HÄR OM UTSKRIFTEN..</p>
 </div>
-<div id="section" class="section level1">
-<h1>4</h1>
-<p>install.packages(“kernlab”) library(kernlab) lpRidgeReg &lt;- list(type = “Regression”, library = “multireg”, loop = NULL)</p>
-<p>prm &lt;- data.frame(parameter = “lambda”, class = “numeric”, label = “lambda”)</p>
-<p>lpRidgeReg$parameters&lt;-prm</p>
-<p>grid &lt;- function (x, y, len = NULL, search = “grid”) { if (search == “grid”) { out &lt;- expand.grid(lambda = c(0, 10^seq(-1, -4, length = len - 1))) } else { out &lt;- data.frame(lambda = 10^runif(len, min = -5, 1)) } out }</p>
-<p>lpRidgeReg$grid &lt;- grid</p>
-<p>fit &lt;- function(x, y, wts, param, lev, last, weights, classProbs, …) { ksvm(x = as.matrix(x), y = y, kernel = rbfdot, kpar = list(param$lambda)) }</p>
-<p>lpRidgeReg$fit &lt;- fit</p>
-<p>pred &lt;- function(modelFit, newdata, preProc = NULL, submodels = NULL){ predict(modelFit, newdata) }</p>
-<p>lpRidgeReg$predict &lt;- pred</p>
-<p>prob &lt;- function(modelFit, newdata, preProc = NULL, submodels = NULL){ predict(modelFit, newdata, type=“probabilities”)</p>
-<p>}</p>
-<p>lpRidgeReg$prob &lt;- prob</p>
-<p>train(medv~., data=training, method=lpRidgeReg)</p>
+<div id="section" class="section level2">
+<h2>4</h2>
+<p>Now we fit a ridge regression model with our <strong>ridgereg</strong> function, different values of lambda.</p>
+<pre><code>## 381 samples
+##  14 predictor
+## 
+## No pre-processing
+## Resampling: Bootstrapped (25 reps) 
+## Summary of sample sizes: 381, 381, 381, 381, 381, 381, ... 
+## Resampling results across tuning parameters:
+## 
+##   lambda  RMSE      Rsquared 
+##   0e+00   4.137533  0.7869124
+##   1e-04   4.137533  0.7869124
+##   1e-01   4.137533  0.7869124
+## 
+## RMSE was used to select the optimal model using  the smallest value.
+## The final value used for the model was lambda = 0.</code></pre>
+<p>This tells ut that the optimal value of lambda =0..</p>
 </div>
-<div id="section-1" class="section level1">
-<h1>5</h1>
-<p>fitControl &lt;- trainControl(method = “repeatedcv”, number = 10, repeats = 10)</p>
-<p>train(medv~., data=training, method=lpRidgeReg)</p>
+<div id="section-1" class="section level2">
+<h2>5</h2>
+<p>Now, we are using 10 fold cross validation to find the best parameter lambda.VARNING.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fitControl &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method =</span> <span class="st">&quot;repeatedcv&quot;</span>, <span class="dt">number =</span> <span class="dv">10</span>, <span class="dt">repeats =</span> <span class="dv">10</span>)
+trainridgecv &lt;-<span class="st"> </span><span class="kw">train</span>(<span class="dt">y=</span>training$medv,<span class="dt">x =</span> training,<span class="dt">method =</span> lpRidgeReg,
+                       <span class="dt">trControl =</span> fitControl)</code></pre></div>
+<pre><code>## Warning: predictions failed for Fold01.Rep02: lambda=0e+00 Error in solve.default(tmodmatX %*% modmatX) : 
+##   Lapack routine dgesv: system is exactly singular: U[5,5] = 0</code></pre>
+<pre><code>## Warning: predictions failed for Fold01.Rep02: lambda=1e-01 Error in solve.default(tmodmatX %*% modmatX) : 
+##   Lapack routine dgesv: system is exactly singular: U[5,5] = 0</code></pre>
+<pre><code>## Warning: predictions failed for Fold01.Rep02: lambda=1e-04 Error in solve.default(tmodmatX %*% modmatX) : 
+##   Lapack routine dgesv: system is exactly singular: U[5,5] = 0</code></pre>
+<pre><code>## Warning: predictions failed for Fold07.Rep03: lambda=0e+00 Error in solve.default(tmodmatX %*% modmatX) : 
+##   Lapack routine dgesv: system is exactly singular: U[5,5] = 0</code></pre>
+<pre><code>## Warning: predictions failed for Fold07.Rep03: lambda=1e-01 Error in solve.default(tmodmatX %*% modmatX) : 
+##   Lapack routine dgesv: system is exactly singular: U[5,5] = 0</code></pre>
+<pre><code>## Warning: predictions failed for Fold07.Rep03: lambda=1e-04 Error in solve.default(tmodmatX %*% modmatX) : 
+##   Lapack routine dgesv: system is exactly singular: U[5,5] = 0</code></pre>
+<pre><code>## Warning: predictions failed for Fold07.Rep06: lambda=0e+00 Error in solve.default(tmodmatX %*% modmatX) : 
+##   Lapack routine dgesv: system is exactly singular: U[5,5] = 0</code></pre>
+<pre><code>## Warning: predictions failed for Fold07.Rep06: lambda=1e-01 Error in solve.default(tmodmatX %*% modmatX) : 
+##   Lapack routine dgesv: system is exactly singular: U[5,5] = 0</code></pre>
+<pre><code>## Warning: predictions failed for Fold07.Rep06: lambda=1e-04 Error in solve.default(tmodmatX %*% modmatX) : 
+##   Lapack routine dgesv: system is exactly singular: U[5,5] = 0</code></pre>
+<pre><code>## Warning: predictions failed for Fold03.Rep09: lambda=0e+00 Error in solve.default(tmodmatX %*% modmatX) : 
+##   Lapack routine dgesv: system is exactly singular: U[5,5] = 0</code></pre>
+<pre><code>## Warning: predictions failed for Fold03.Rep09: lambda=1e-01 Error in solve.default(tmodmatX %*% modmatX) : 
+##   Lapack routine dgesv: system is exactly singular: U[5,5] = 0</code></pre>
+<pre><code>## Warning: predictions failed for Fold03.Rep09: lambda=1e-04 Error in solve.default(tmodmatX %*% modmatX) : 
+##   Lapack routine dgesv: system is exactly singular: U[5,5] = 0</code></pre>
+<pre><code>## Warning: predictions failed for Fold05.Rep10: lambda=0e+00 Error in solve.default(tmodmatX %*% modmatX) : 
+##   Lapack routine dgesv: system is exactly singular: U[5,5] = 0</code></pre>
+<pre><code>## Warning: predictions failed for Fold05.Rep10: lambda=1e-01 Error in solve.default(tmodmatX %*% modmatX) : 
+##   Lapack routine dgesv: system is exactly singular: U[5,5] = 0</code></pre>
+<pre><code>## Warning: predictions failed for Fold05.Rep10: lambda=1e-04 Error in solve.default(tmodmatX %*% modmatX) : 
+##   Lapack routine dgesv: system is exactly singular: U[5,5] = 0</code></pre>
+<pre><code>## Warning in nominalTrainWorkflow(x = x, y = y, wts = weights, info =
+## trainInfo, : There were missing values in resampled performance measures.</code></pre>
 </div>
 
 
