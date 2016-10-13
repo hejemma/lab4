@@ -12,7 +12,7 @@
 
 <meta name="author" content="Zaida Liendeborg, Emma Wallentinsson" />
 
-<meta name="date" content="2016-10-12" />
+<meta name="date" content="2016-10-13" />
 
 <title>Ridgereg(), caret and dplyr</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Ridgereg(), caret and dplyr</h1>
 <h4 class="author"><em>Zaida Liendeborg, Emma Wallentinsson</em></h4>
-<h4 class="date"><em>2016-10-12</em></h4>
+<h4 class="date"><em>2016-10-13</em></h4>
 
 
 
@@ -79,13 +79,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2>Ridgereg() function</h2>
 <p>The <strong>ridgereg()</strong> function fits a ridgre regression using the Ordinary Least Squares method. The function takes arguments <strong>formula, data and lambda.</strong> Formula should be the regression equation, it means to say both the response and the predictors. There should also be a dataset where the variables are taken from and a specified lambda value to be used to find the true parameters.</p>
 <p>The function returns an list of a class <strong>ridgereg</strong> containing the regression equation used, the estimates of the beta coefficients and the fitted values.</p>
+<pre><code>## Loading required package: ggplot2</code></pre>
+<pre><code>## Loading required package: gridExtra</code></pre>
+<pre><code>## Loading required package: maps</code></pre>
+<pre><code>## Loading required package: maptools</code></pre>
+<pre><code>## Loading required package: sp</code></pre>
+<pre><code>## Checking rgeos availability: TRUE</code></pre>
+<pre><code>## Loading required package: MASS</code></pre>
 <p>There are three different methods implemented on the function and they will be discussed in the following sections:</p>
 </div>
 <div id="the-coef.ridgereg-method" class="section level2">
 <h2>The coef.ridgereg method</h2>
 <p>This <strong>coef()</strong> returns a name vector with the estimates of the beta coefficients from the fitted ridge regression. It only takes an object of a class ridgereg.</p>
 <pre><code>##  (Intercept) Petal.Length  Petal.Width 
-##    4.1905824    0.5417772   -0.3195506</code></pre>
+##    5.8433333    0.9563983   -0.2435735</code></pre>
 </div>
 <div id="the-print.ridgereg-method" class="section level2">
 <h2>The print.ridgereg method</h2>
@@ -96,18 +103,29 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 
 ## $Coefficients
 ##  (Intercept) Petal.Length  Petal.Width 
-##    4.1905824    0.5417772   -0.3195506</code></pre>
+##    5.8433333    0.9563983   -0.2435735</code></pre>
 </div>
 <div id="the-predict.ridgereg-method" class="section level2">
 <h2>The predict.ridgereg method</h2>
 <p>The <strong>predict()</strong> method simply gives the predicted values of the fitted ridge regression model. It takes two arguments such as <strong>object and newdata</strong>. Object should be a ridgereg object and newdata is an optional data frame in which the prediction of new values would be based on. If there is no given new dataset, the predict function will simply return a numeric vector with the fitted values.</p>
 <p>To show how predict works, let’s take iris data as an example. First let’s divide the data into two sets: <strong>training and test</strong> sets.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(iris)
+train&lt;-<span class="st"> </span>iris[<span class="dv">1</span>:<span class="dv">75</span>,]
+test&lt;-<span class="st"> </span>iris[<span class="dv">76</span>:<span class="dv">150</span>,]
+
+pred_ridgeobject&lt;-<span class="st"> </span><span class="kw">ridgereg</span>(<span class="dt">formula=</span> Sepal.Length ~<span class="st"> </span>Petal.Length +<span class="st"> </span>Petal.Width,
+                       <span class="dt">data=</span>train, <span class="dt">lambda=</span><span class="dv">0</span>)
+
+new_pred&lt;-<span class="st"> </span><span class="kw">predict</span>(pred_ridgeobject, <span class="dt">newdata=</span>test)
+
+<span class="kw">head</span>(new_pred)</code></pre></div>
 <pre><code>## [1] 5.891570 6.224989 6.288467 5.940514 5.279019 5.494673</code></pre>
 </div>
 <div id="predictive-model-for-the-bostonhousing-data-set" class="section level2">
 <h2>Predictive model for the BostonHousing data set</h2>
 <p>A predictive model is created for the <em>BostonHpusing</em> data set located in the <strong>mlbench</strong> package. First, the data is splitted in a training and test set using the <strong>caret</strong> package. The traning part is set to 75 % of the data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mlbench)
+<span class="kw">library</span>(leaps)
 <span class="kw">data</span>(<span class="st">&quot;BostonHousing&quot;</span>) <span class="co">#load data</span>
 <span class="kw">library</span>(caret)</code></pre></div>
 <pre><code>## Loading required package: lattice</code></pre>
@@ -118,14 +136,22 @@ testing &lt;-<span class="st"> </span>BostonHousing[-inTrain,] <span class="co">
 <p>A linear regression model and a linear regression model with forward selection of covariates is fitted to the training set.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lmFit&lt;-<span class="kw">train</span>(medv~., <span class="dt">data =</span> training, <span class="dt">method=</span><span class="st">&quot;lm&quot;</span>)<span class="co"># linear regression</span>
 lmFitForw&lt;-<span class="kw">train</span>(medv~., <span class="dt">data=</span>training, <span class="dt">method=</span><span class="st">&quot;leapForward&quot;</span>)<span class="co"># forward selection</span></code></pre></div>
-<pre><code>## Loading required package: leaps</code></pre>
 <p>The evaluating of the performance of the models are being done on the linear regression model:</p>
-<pre><code>##     RMSE Rsquared 
-## 4.834995 0.708644</code></pre>
+<pre><code>##      RMSE  Rsquared 
+## 4.7385259 0.7328693</code></pre>
 <p>And on the fast forward regression model:</p>
 <pre><code>##      RMSE  Rsquared 
-## 5.2144718 0.6611148</code></pre>
+## 5.1344366 0.6863662</code></pre>
 <p>.. which means THAT.. INSERT NÅT BRA HÄR OM UTSKRIFTEN..</p>
+</div>
+<div id="section" class="section level1">
+<h1>4</h1>
+</div>
+<div id="section-1" class="section level1">
+<h1>5</h1>
+<p>ten folds cross val när 4 väl är färdig..</p>
+<p>fitControl &lt;- trainControl(method = “repeatedcv”,number = 10,repeats = 10)</p>
+<p>train(medv~. data=training, method=“ridgereg”, trControl=fitControl)</p>
 </div>
 
 

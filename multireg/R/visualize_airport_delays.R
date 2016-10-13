@@ -3,7 +3,7 @@
 #' The function visualizes the mean total flight delays from different aiports in the US. By using the data \code{airports} and \code{flights} from the package \code{\link{nycflights13}}, the mean total time delays were calculated.
 #' 
 #' @return A ggplot object visualizes into a choropleth map.
-#' 
+#'
 #' @export
 
 
@@ -30,22 +30,22 @@ mean_delay<- airFlight %>% group_by(faa) %>% summarise(total_mean = mean(total_d
 
 # Creating new data set for plotting. Total mean delay for every airport #
 airFlight_delay<- inner_join(airports_sub, mean_delay, by="faa")
+#airFlight_delay<- merge(airports_sub, mean_delay, by.x="faa" )
 
 # To get states name we use function latlong2state # 
 airFlight_delay$States<- latlong2state(airFlight_delay[,c("lon", "lat")])
 
-airFlight_delay <- airFlight_delay %>% select(States, total_mean) 
+airFlight_delay <- airFlight_delay %>% select(States, total_mean, lon, lat) 
 
 # Plotting the data #
 states<- map_data("state")
 
-air_mapdata<- inner_join(airFlight_delay, states, by=c("States"="region")) 
+air_mapdata<- semi_join(airFlight_delay, states, by=c("States"="region")) 
 
-map_base<- ggplot(data = states, mapping = aes(x = long, y = lat, group = group)) + 
-  geom_polygon(color = "black", fill = "gray")
+map_base<- ggplot() + 
+  geom_polygon(data = states, mapping = aes(x = long, y = lat, group=group),color = "gray", fill = "white")
 
-plot<- map_base + geom_polygon(data = air_mapdata, aes(fill = total_mean), color = "white") +
-  geom_polygon(color = "black", fill = NA) +  
+plot<- map_base + geom_point(data = air_mapdata, aes(x= lon, y=lat, color=total_mean)) +
   ggtitle("Mean total flight delays for different airports")
 
 noAxes<- theme(
