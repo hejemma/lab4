@@ -12,7 +12,7 @@
 
 <meta name="author" content="Zaida Liendeborg, Emma Wallentinsson" />
 
-<meta name="date" content="2016-10-12" />
+<meta name="date" content="2016-10-13" />
 
 <title>Ridgereg(), caret and dplyr</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Ridgereg(), caret and dplyr</h1>
 <h4 class="author"><em>Zaida Liendeborg, Emma Wallentinsson</em></h4>
-<h4 class="date"><em>2016-10-12</em></h4>
+<h4 class="date"><em>2016-10-13</em></h4>
 
 
 
@@ -79,6 +79,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2>Ridgereg() function</h2>
 <p>The <strong>ridgereg()</strong> function fits a ridgre regression using the Ordinary Least Squares method. The function takes arguments <strong>formula, data and lambda.</strong> Formula should be the regression equation, it means to say both the response and the predictors. There should also be a dataset where the variables are taken from and a specified lambda value to be used to find the true parameters.</p>
 <p>The function returns an list of a class <strong>ridgereg</strong> containing the regression equation used, the estimates of the beta coefficients and the fitted values.</p>
+<pre><code>## Loading required package: ggplot2</code></pre>
+<pre><code>## Loading required package: gridExtra</code></pre>
 <p>There are three different methods implemented on the function and they will be discussed in the following sections:</p>
 </div>
 <div id="the-coef.ridgereg-method" class="section level2">
@@ -120,12 +122,21 @@ testing &lt;-<span class="st"> </span>BostonHousing[-inTrain,] <span class="co">
 lmFitForw&lt;-<span class="kw">train</span>(medv~., <span class="dt">data=</span>training, <span class="dt">method=</span><span class="st">&quot;leapForward&quot;</span>)<span class="co"># forward selection</span></code></pre></div>
 <pre><code>## Loading required package: leaps</code></pre>
 <p>The evaluating of the performance of the models are being done on the linear regression model:</p>
-<pre><code>##     RMSE Rsquared 
-## 4.834995 0.708644</code></pre>
+<pre><code>##      RMSE  Rsquared 
+## 4.8389533 0.7311187</code></pre>
 <p>And on the fast forward regression model:</p>
 <pre><code>##      RMSE  Rsquared 
-## 5.2144718 0.6611148</code></pre>
+## 5.2797774 0.6798976</code></pre>
 <p>.. which means THAT.. INSERT NÅT BRA HÄR OM UTSKRIFTEN..</p>
+</div>
+<div id="section" class="section level1">
+<h1>4</h1>
+</div>
+<div id="section-1" class="section level1">
+<h1>5</h1>
+<p>ten folds cross val när 4 väl är färdig..</p>
+<p>fitControl &lt;- trainControl(method = “repeatedcv”,number = 10,repeats = 10)</p>
+<p>train(medv~. data=training, method=“ridgereg”, trControl=fitControl)</p>
 </div>
 
 

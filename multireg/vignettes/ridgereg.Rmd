@@ -113,6 +113,32 @@ defaultSummary(modvaluesFF)
 # 4 
 
 
+lpRidgeReg <- list(type = "Regression",
+              library = "multireg",
+              loop = NULL) 
+
+prm <- data.frame(parameter = c("formula", "data","lambda"),
+                  class = c("formula", "data.frame", "numeric"),
+                  label = c("formula", "data", "lambda"))
+
+
+lpRidgeReg$prm<-prm
+
+
+grid <- function (x, y, len = NULL, search = "grid")
+{
+  if (search == "grid") {
+    out <- expand.grid(lambda = c(0, 10^seq(-1, -4, length = len - 1)))
+  }
+  else {
+    out <- data.frame(lambda = 10^runif(len, min = -5, 1))
+  }
+  out
+}
+
+lpRidgeReg$grid <- grid
+
+
 # 5 
 
 ten folds cross val när 4 väl är färdig.. 
