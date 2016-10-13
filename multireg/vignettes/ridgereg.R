@@ -13,7 +13,7 @@ coef(ridgeobject)
 print(ridgeobject)
 
 
-## ---- echo=FALSE---------------------------------------------------------
+## ------------------------------------------------------------------------
 data(iris)
 train<- iris[1:75,]
 test<- iris[76:150,]
@@ -28,6 +28,7 @@ head(new_pred)
 
 ## ------------------------------------------------------------------------
 library(mlbench)
+library(leaps)
 data("BostonHousing") #load data
 library(caret)
 inTrain <- createDataPartition(y = BostonHousing$medv,  p = .75, list = FALSE) #data partitioning

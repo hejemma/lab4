@@ -79,16 +79,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2>Ridgereg() function</h2>
 <p>The <strong>ridgereg()</strong> function fits a ridgre regression using the Ordinary Least Squares method. The function takes arguments <strong>formula, data and lambda.</strong> Formula should be the regression equation, it means to say both the response and the predictors. There should also be a dataset where the variables are taken from and a specified lambda value to be used to find the true parameters.</p>
 <p>The function returns an list of a class <strong>ridgereg</strong> containing the regression equation used, the estimates of the beta coefficients and the fitted values.</p>
-<pre><code>## Loading required package: ggplot2</code></pre>
-<pre><code>## Loading required package: gridExtra</code></pre>
-<<<<<<< HEAD
-=======
-<pre><code>## Loading required package: maps</code></pre>
-<pre><code>## Loading required package: maptools</code></pre>
-<pre><code>## Loading required package: sp</code></pre>
-<pre><code>## Checking rgeos availability: TRUE</code></pre>
-<pre><code>## Loading required package: MASS</code></pre>
->>>>>>> eca6248d47b0f16d4019bdd0ad47c79ac457779e
 <p>There are three different methods implemented on the function and they will be discussed in the following sections:</p>
 </div>
 <div id="the-coef.ridgereg-method" class="section level2">
@@ -141,21 +131,32 @@ testing &lt;-<span class="st"> </span>BostonHousing[-inTrain,] <span class="co">
 lmFitForw&lt;-<span class="kw">train</span>(medv~., <span class="dt">data=</span>training, <span class="dt">method=</span><span class="st">&quot;leapForward&quot;</span>)<span class="co"># forward selection</span></code></pre></div>
 <p>The evaluating of the performance of the models are being done on the linear regression model:</p>
 <pre><code>##      RMSE  Rsquared 
-
-## 4.8389533 0.7311187</code></pre>
+## 4.6430532 0.7643649</code></pre>
 <p>And on the fast forward regression model:</p>
 <pre><code>##      RMSE  Rsquared 
-## 5.2797774 0.6798976</code></pre>
+## 5.0264940 0.7238386</code></pre>
 <p>.. which means THAT.. INSERT NÅT BRA HÄR OM UTSKRIFTEN..</p>
 </div>
 <div id="section" class="section level1">
 <h1>4</h1>
+<p>install.packages(“kernlab”) library(kernlab) lpRidgeReg &lt;- list(type = “Regression”, library = “multireg”, loop = NULL)</p>
+<p>prm &lt;- data.frame(parameter = “lambda”, class = “numeric”, label = “lambda”)</p>
+<p>lpRidgeReg$parameters&lt;-prm</p>
+<p>grid &lt;- function (x, y, len = NULL, search = “grid”) { if (search == “grid”) { out &lt;- expand.grid(lambda = c(0, 10^seq(-1, -4, length = len - 1))) } else { out &lt;- data.frame(lambda = 10^runif(len, min = -5, 1)) } out }</p>
+<p>lpRidgeReg$grid &lt;- grid</p>
+<p>fit &lt;- function(x, y, wts, param, lev, last, weights, classProbs, …) { ksvm(x = as.matrix(x), y = y, kernel = rbfdot, kpar = list(param$lambda)) }</p>
+<p>lpRidgeReg$fit &lt;- fit</p>
+<p>pred &lt;- function(modelFit, newdata, preProc = NULL, submodels = NULL){ predict(modelFit, newdata) }</p>
+<p>lpRidgeReg$predict &lt;- pred</p>
+<p>prob &lt;- function(modelFit, newdata, preProc = NULL, submodels = NULL){ predict(modelFit, newdata, type=“probabilities”)</p>
+<p>}</p>
+<p>lpRidgeReg$prob &lt;- prob</p>
+<p>train(medv~., data=training, method=lpRidgeReg)</p>
 </div>
 <div id="section-1" class="section level1">
 <h1>5</h1>
-<p>ten folds cross val när 4 väl är färdig..</p>
-<p>fitControl &lt;- trainControl(method = “repeatedcv”,number = 10,repeats = 10)</p>
-<p>train(medv~. data=training, method=“ridgereg”, trControl=fitControl)</p>
+<p>fitControl &lt;- trainControl(method = “repeatedcv”, number = 10, repeats = 10)</p>
+<p>train(medv~., data=training, method=lpRidgeReg)</p>
 </div>
 
 

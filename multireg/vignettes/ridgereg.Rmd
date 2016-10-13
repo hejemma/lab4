@@ -113,18 +113,18 @@ defaultSummary(modvaluesFF)
 
 # 4 
 
-
+install.packages("kernlab")
+library(kernlab)
 lpRidgeReg <- list(type = "Regression",
               library = "multireg",
               loop = NULL) 
 
-prm <- data.frame(parameter = c("formula", "data","lambda"),
-                  class = c("formula", "data.frame", "numeric"),
-                  label = c("formula", "data", "lambda"))
+prm <- data.frame(parameter = "lambda",
+                  class = "numeric",
+                  label = "lambda")
 
 
-lpRidgeReg$prm<-prm
-
+lpRidgeReg$parameters<-prm
 
 grid <- function (x, y, len = NULL, search = "grid")
 {
@@ -139,15 +139,35 @@ grid <- function (x, y, len = NULL, search = "grid")
 
 lpRidgeReg$grid <- grid
 
+fit <- function(x, y, wts, param, lev, last, weights, classProbs, ...) { 
+  ksvm(x = as.matrix(x), y = y,
+       kernel = rbfdot,
+       kpar = list(param$lambda))
+ }
+ 
+lpRidgeReg$fit <- fit
+
+pred <- function(modelFit, newdata, preProc = NULL, submodels = NULL){
+ predict(modelFit, newdata)
+}
+  
+lpRidgeReg$predict <- pred
+
+prob <- function(modelFit, newdata, preProc = NULL, submodels = NULL){
+   predict(modelFit, newdata, type="probabilities")
+
+}
+
+lpRidgeReg$prob <- prob
+
+train(medv~., data=training, method=lpRidgeReg)
+
 
 # 5 
+fitControl <- trainControl(method = "repeatedcv", number = 10, repeats = 10)
 
-ten folds cross val när 4 väl är färdig.. 
+train(medv~., data=training, method=lpRidgeReg)
 
-
-fitControl <- trainControl(method = "repeatedcv",number = 10,repeats = 10)
-
-train(medv~. data=training, method="ridgereg", trControl=fitControl)
 
 
 
