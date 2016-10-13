@@ -51,7 +51,7 @@ The **predict()** method simply gives the predicted values of the fitted ridge r
 
 To show how predict works, let's take iris data as an example. First let's divide the data into two sets: **training and test** sets.
 
-```{r, echo=FALSE}
+```{r}
 data(iris)
 train<- iris[1:75,]
 test<- iris[76:150,]
@@ -71,6 +71,7 @@ head(new_pred)
 A predictive model is created for the *BostonHpusing* data set located in the **mlbench** package. First, the data is splitted in a training and test set using the **caret** package. The traning part is set to 75 % of the data. 
 ```{r}
 library(mlbench)
+library(leaps)
 data("BostonHousing") #load data
 library(caret)
 inTrain <- createDataPartition(y = BostonHousing$medv,  p = .75, list = FALSE) #data partitioning
