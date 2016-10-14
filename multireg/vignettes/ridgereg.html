@@ -84,7 +84,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="the-coef.ridgereg-method" class="section level2">
 <h2>The coef.ridgereg method</h2>
 <p>This <strong>coef()</strong> returns a name vector with the estimates of the beta coefficients from the fitted ridge regression. It only takes an object of a class ridgereg.</p>
-<pre><code>##              Petal.Length  Petal.Width 
+<pre><code>##  (Intercept) Petal.Length  Petal.Width 
 ##    5.8433333    0.9563983   -0.2435735</code></pre>
 </div>
 <div id="the-print.ridgereg-method" class="section level2">
@@ -95,7 +95,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##     data = iris, lambda = 0)
 ## 
 ## $Coefficients
-##              Petal.Length  Petal.Width 
+##  (Intercept) Petal.Length  Petal.Width 
 ##    5.8433333    0.9563983   -0.2435735</code></pre>
 </div>
 <div id="the-predict.ridgereg-method" class="section level2">
@@ -120,9 +120,8 @@ new_pred&lt;-<span class="st"> </span><span class="kw">predict</span>(pred_ridge
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mlbench)
 <span class="kw">library</span>(leaps)
 <span class="kw">data</span>(<span class="st">&quot;BostonHousing&quot;</span>) <span class="co">#load data</span>
-<span class="kw">library</span>(caret)</code></pre></div>
-<pre><code>## Loading required package: lattice</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inTrain &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(<span class="dt">y =</span> BostonHousing$medv,  <span class="dt">p =</span> .<span class="dv">75</span>, <span class="dt">list =</span> <span class="ot">FALSE</span>) <span class="co">#data partitioning</span>
+<span class="kw">library</span>(caret)
+inTrain &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(<span class="dt">y =</span> BostonHousing$medv,  <span class="dt">p =</span> .<span class="dv">75</span>, <span class="dt">list =</span> <span class="ot">FALSE</span>) <span class="co">#data partitioning</span>
 
 training &lt;-<span class="st"> </span>BostonHousing[ inTrain,] <span class="co">#training set </span>
 testing &lt;-<span class="st"> </span>BostonHousing[-inTrain,] <span class="co"># test set </span></code></pre></div>
@@ -130,11 +129,11 @@ testing &lt;-<span class="st"> </span>BostonHousing[-inTrain,] <span class="co">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lmFit&lt;-<span class="kw">train</span>(medv~., <span class="dt">data =</span> training, <span class="dt">method=</span><span class="st">&quot;lm&quot;</span>)<span class="co"># linear regression</span>
 lmFitForw&lt;-<span class="kw">train</span>(medv~., <span class="dt">data=</span>training, <span class="dt">method=</span><span class="st">&quot;leapForward&quot;</span>)<span class="co"># forward selection</span></code></pre></div>
 <p>The evaluating of the performance of the models are being done on the linear regression model:</p>
-<pre><code>##      RMSE  Rsquared 
-## 4.5603192 0.7521266</code></pre>
+<pre><code>##     RMSE Rsquared 
+## 4.667933 0.748927</code></pre>
 <p>And on the fast forward regression model:</p>
 <pre><code>##      RMSE  Rsquared 
-## 5.1202339 0.6875222</code></pre>
+## 5.1053137 0.6996722</code></pre>
 <p>Which means that the linear regression model is better, due to the higher R square and lower RMSE.</p>
 <p>Now we fit a ridge regression model with our <strong>ridgereg</strong> function, different values of lambda.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lpRidgeReg &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">type =</span> <span class="st">&quot;Regression&quot;</span>,
@@ -208,13 +207,16 @@ lpRidgeReg$prob &lt;-<span class="st"> </span><span class="kw">list</span>(<span
 ## Resampling results across tuning parameters:
 ## 
 ##   lambda  RMSE      Rsquared 
-##   0e+00   4.945827  0.7236179
-##   1e-04   4.945724  0.7236284
-##   1e-01   4.987445  0.7209711
+##   0e+00   5.136335  0.7153808
+##   1e-04   5.136245  0.7153880
+##   1e-01   5.145325  0.7145800
 ## 
 ## RMSE was used to select the optimal model using  the smallest value.
 ## The final value used for the model was lambda = 1e-04.</code></pre>
 <p>This tells ut that the optimal value of lambda 0.</p>
+</div>
+<div id="section" class="section level2">
+<h2>5</h2>
 <p>Now, we are using 10 fold cross validation to find the best parameter lambda.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fitControl &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method =</span> <span class="st">&quot;repeatedcv&quot;</span>, <span class="dt">number =</span> <span class="dv">10</span>, <span class="dt">repeats =</span> <span class="dv">10</span>)
 trainridgecv &lt;-<span class="st"> </span><span class="kw">train</span>(<span class="dt">form=</span> medv~., <span class="dt">data=</span>training,<span class="dt">method =</span><span class="st">&quot;ridge&quot;</span>,
@@ -227,17 +229,78 @@ trainridgecv</code></pre></div>
 ## 
 ## No pre-processing
 ## Resampling: Cross-Validated (10 fold, repeated 10 times) 
-## Summary of sample sizes: 344, 343, 342, 342, 344, 343, ... 
+## Summary of sample sizes: 343, 342, 342, 345, 342, 344, ... 
 ## Resampling results across tuning parameters:
 ## 
 ##   lambda  RMSE      Rsquared 
-##   0e+00   4.769966  0.7359862
-##   1e-04   4.769923  0.7359904
-##   1e-01   4.820577  0.7318052
+##   0e+00   4.808569  0.7401700
+##   1e-04   4.808487  0.7401769
+##   1e-01   4.834250  0.7379897
 ## 
 ## RMSE was used to select the optimal model using  the smallest value.
 ## The final value used for the model was lambda = 1e-04.</code></pre>
 <p>The ultimate value for lambda here is still 0.</p>
+</div>
+<div id="section-1" class="section level2">
+<h2>6</h2>
+<p>We test the models on our test data below</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">testlm&lt;-<span class="kw">train</span>(<span class="dt">form=</span>medv~., <span class="dt">data=</span>testing, <span class="dt">method=</span><span class="st">&quot;lm&quot;</span>)
+testlm <span class="co">#RMSE 5,82 Rsq 0.621</span></code></pre></div>
+<pre><code>## Linear Regression 
+## 
+## 125 samples
+##  13 predictor
+## 
+## No pre-processing
+## Resampling: Bootstrapped (25 reps) 
+## Summary of sample sizes: 125, 125, 125, 125, 125, 125, ... 
+## Resampling results:
+## 
+##   RMSE      Rsquared 
+##   5.744079  0.6148324
+## 
+## Tuning parameter 'intercept' was held constant at a value of TRUE
+## </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">testridge&lt;-<span class="kw">train</span>(<span class="dt">form=</span>medv~., <span class="dt">data=</span> testing, <span class="dt">method=</span><span class="st">&quot;ridge&quot;</span>, <span class="dt">lambda=</span><span class="dv">0</span>)
+testridge <span class="co">#RMSE 5.49 Rsq 0.678</span></code></pre></div>
+<pre><code>## Ridge Regression 
+## 
+## 125 samples
+##  13 predictor
+## 
+## No pre-processing
+## Resampling: Bootstrapped (25 reps) 
+## Summary of sample sizes: 125, 125, 125, 125, 125, 125, ... 
+## Resampling results across tuning parameters:
+## 
+##   lambda  RMSE      Rsquared 
+##   0e+00   5.549141  0.6300027
+##   1e-04   5.548942  0.6300352
+##   1e-01   5.508439  0.6444270
+## 
+## RMSE was used to select the optimal model using  the smallest value.
+## The final value used for the model was lambda = 0.1.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">testridgecv &lt;-<span class="st"> </span><span class="kw">train</span>(<span class="dt">form=</span> medv~., <span class="dt">data=</span>testing,<span class="dt">method =</span><span class="st">&quot;ridge&quot;</span>,
+                       <span class="dt">trControl =</span> fitControl, <span class="dt">lambda=</span><span class="dv">0</span>)
+testridgecv <span class="co"># RMSE 5,13 Rsq 0.74</span></code></pre></div>
+<pre><code>## Ridge Regression 
+## 
+## 125 samples
+##  13 predictor
+## 
+## No pre-processing
+## Resampling: Cross-Validated (10 fold, repeated 10 times) 
+## Summary of sample sizes: 112, 112, 113, 113, 112, 112, ... 
+## Resampling results across tuning parameters:
+## 
+##   lambda  RMSE      Rsquared 
+##   0e+00   5.181655  0.7017681
+##   1e-04   5.181336  0.7018016
+##   1e-01   5.134316  0.7073721
+## 
+## RMSE was used to select the optimal model using  the smallest value.
+## The final value used for the model was lambda = 0.1.</code></pre>
+<p>The best model according to RMSE and Rsquared is the ridge method with lambda =0 and the 10 fold cross validation.</p>
 </div>
 
 

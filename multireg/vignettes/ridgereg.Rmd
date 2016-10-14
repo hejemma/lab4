@@ -68,6 +68,7 @@ head(new_pred)
 
 ## Predictive model for the BostonHousing data set
 
+##1
 A predictive model is created for the *BostonHousing* data set located in the **mlbench** package. First, the data is splitted in a training and test set using the **caret** package. The traning part is set to 75 % of the data. 
 ```{r}
 library(mlbench)
@@ -81,6 +82,8 @@ testing <- BostonHousing[-inTrain,] # test set
 
 ```
 
+##2
+
 A linear regression model and a linear regression model with forward selection of covariates is fitted to the training set. 
 
 
@@ -89,6 +92,8 @@ A linear regression model and a linear regression model with forward selection o
 lmFit<-train(medv~., data = training, method="lm")# linear regression
 lmFitForw<-train(medv~., data=training, method="leapForward")# forward selection
 ```
+
+##3
 
 The evaluating of the performance of the models are being done on the linear regression model: 
 
@@ -111,6 +116,7 @@ defaultSummary(modvaluesFF)
 
 Which means that the linear regression model is better, due to the higher R square and lower RMSE.  
 
+##4
 
 Now we fit a ridge regression model with our **ridgereg** function, different values of lambda. 
 ```{r}
@@ -176,7 +182,7 @@ train(form= medv~., data=training,method ="ridge")
 
 This tells ut that the optimal value of lambda 0.
 
-
+##5
 
 
 Now, we are using 10 fold cross validation to find the best parameter lambda.  
@@ -190,5 +196,24 @@ trainridgecv
 
 The ultimate value for lambda here is still 0. 
 
+##6
+
+
+We test the models on our test data below
+
+```{r}
+testlm<-train(form=medv~., data=testing, method="lm")
+testlm #RMSE 5,82 Rsq 0.621
+
+testridge<-train(form=medv~., data= testing, method="ridge", lambda=0)
+testridge #RMSE 5.49 Rsq 0.678
+testridgecv <- train(form= medv~., data=testing,method ="ridge",
+                       trControl = fitControl, lambda=0)
+testridgecv # RMSE 5,13 Rsq 0.74
+
+
+```
+
+The best model according to RMSE and Rsquared is the ridge method with lambda =0 and the 10 fold cross validation. 
 
 
