@@ -20,7 +20,6 @@ An object of class ridgereg.
 The function calculates the regression coefficients, and fitted values
 }
 \examples{
-ridgereg(formula= Sepal.Width ~ Sepal.Length, data= iris)
-ridgereg(formula = eruptions ~ waiting, data= faithful)
+ridgereg(formula= Sepal.Width ~ Sepal.Length + Petal.Width, data= iris)
 }
 

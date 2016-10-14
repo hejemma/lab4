@@ -6,7 +6,7 @@
 #' @return Coefficients and equations extracted from the model in \code{\link{ridgereg}} and returned as a named vector.
 #'
 #' @examples
-#' x<- ridgereg(formula= Sepal.Width ~ Sepal.Length, data= iris)
+#' x<- ridgereg(formula= Sepal.Width ~ Sepal.Length + Petal.Width, data= iris)
 #' print(x)
 #' @export
 

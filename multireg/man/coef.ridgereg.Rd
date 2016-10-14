@@ -18,7 +18,7 @@ Coefficients extracted from the model \code{\link{ridgereg}} and returned as a n
 \code{coef} returns the estimated beta coefficients of the regression model calculated by the \code{\link{ridgereg}} function.
 }
 \examples{
-x<- ridgereg(formula= Sepal.Width ~ Sepal.Length, data= iris)
+x<- ridgereg(formula= Sepal.Width ~ Sepal.Length + Petal.Width, data= iris)
 coef(x)
 }
 

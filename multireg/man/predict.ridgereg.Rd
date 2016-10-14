@@ -11,7 +11,7 @@
 
 \item{newdata}{If another data set with same variables is wished to use for prediction}
 
-\item{...}{other arguments like .}
+\item{...}{optional arguments that can be passed on the function.}
 }
 \value{
 A numeric vector of fitted values extracted from the model in \code{\link{ridgereg}}.
@@ -20,7 +20,7 @@ A numeric vector of fitted values extracted from the model in \code{\link{ridger
 \code{pred} returns the fitted values of the regression model calculated by the \code{\link{ridgereg}} function.
 }
 \examples{
-x<- ridgereg(formula= Sepal.Width ~ Sepal.Length, data= iris)
+x<- ridgereg(formula= Sepal.Width ~ Sepal.Length + Petal.Width, data= iris)
 predict(x)
 }
 

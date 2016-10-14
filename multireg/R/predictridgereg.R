@@ -3,11 +3,11 @@
 #' \code{pred} returns the fitted values of the regression model calculated by the \code{\link{ridgereg}} function.
 #' @param object An object of class \code{ridgereg} 
 #' @param newdata If another data set with same variables is wished to use for prediction
-#' @param ... other arguments like .
+#' @param ... optional arguments that can be passed on the function.
 #' @return A numeric vector of fitted values extracted from the model in \code{\link{ridgereg}}.
 #'
 #' @examples
-#' x<- ridgereg(formula= Sepal.Width ~ Sepal.Length, data= iris)
+#' x<- ridgereg(formula= Sepal.Width ~ Sepal.Length + Petal.Width, data= iris)
 #' predict(x)
 #' @export
 

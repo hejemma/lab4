@@ -10,6 +10,6 @@ visualize_airports_delay()
 A ggplot object visualizes into a choropleth map.
 }
 \description{
-The function visualizes the mean total flight delays from different aiports in the US. By using the data \code{airports} and \code{flights} from the package \code{\link{nycflights13}}, the mean total time delays were calculated.
+The function visualizes the mean total flight delays from different aiports in the US. By using the data \code{airports} and \code{flights} from the package \code{nycflights13}, the mean total time delays were calculated.
 }
 
