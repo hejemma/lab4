@@ -6,8 +6,7 @@
 #' @param Optional choiche of lambda, default = 0.
 #' @return An object of class ridgereg.
 #' @examples
-#' ridgereg(formula= Sepal.Width ~ Sepal.Length, data= iris)
-#' ridgereg(formula = eruptions ~ waiting, data= faithful)
+#' ridgereg(formula= Sepal.Width ~ Sepal.Length + Petal.Width, data= iris)
 #' @export
 
 
@@ -15,7 +14,7 @@
 
 ridgereg<- function(formula, data, lambda=0){
   
-  #stopFunction(formula, data, lambda)
+  stopFunction(formula, data, lambda)
   
   # Create a model matrix X
   varX<- all.vars(formula[[3]]) #kolla vilka som ska va i model matrix
