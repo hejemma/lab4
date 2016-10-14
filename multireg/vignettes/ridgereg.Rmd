@@ -109,12 +109,11 @@ defaultSummary(modvaluesFF)
 
 ```
 
-.. which means THAT.. INSERT NÅT BRA HÄR OM UTSKRIFTEN.. 
+Which means that the linear regression model is better, due to the higher R square and lower RMSE.  
 
-## 4 
 
 Now we fit a ridge regression model with our **ridgereg** function, different values of lambda. 
-```{r, echo=FALSE}
+```{r}
 lpRidgeReg <- list(type = "Regression",
                    library = "multireg",
                    loop = NULL) 
@@ -141,32 +140,18 @@ lpRidgeReg$grid <- grid
 
 fitreg<-function(x,y,lambda,param,lev,last,classProbs,...){
   
-  dat <- as.data.frame(x)
+  if(is.data.frame(x)){
+    dat<- x
+  }else{
+    dat<- as.data.frame(x)
+  } 
+  dat$medv<- y
+
+  frmla <- as.formula(paste(colnames(dat)[ncol(dat)], 
+                            paste(colnames(dat)[1:(ncol(dat)-1)],
+                                  sep = "", collapse = " + "), sep = " ~ "))
   
-  respvector <- NULL
-  respname <- NULL
-  respnum <- NULL
-  
-  for(i in 1:ncol(x)){
-    if(identical(y,dat[,i])){
-      respvector <- dat[,i]
-      respname <- names(x)[i]
-      respnum <- i
-    }
-  }
-  
-  formula <- paste(respname,"~", sep="")
-  
-  if(ncol(x) > 1){
-    for(i in 1:ncol(x)){
-      if(i != respnum){
-        formula <- paste(formula, "+", names(dat)[i], sep="")
-      }
-    }
-  }
-  
-  formula <- as.formula(formula)
-  model <- multireg::ridgereg( formula = formula, data=dat,lambda= param$lambda)
+  model <- multireg::ridgereg(formula= frmla, data=dat, lambda= param)
   return(model)
 }
 
@@ -178,33 +163,32 @@ pred <- function(modelFit, newdata, preProc = NULL, submodels = NULL){
 
 lpRidgeReg$predict <- pred
 
-prob <- function(modelFit, newdata, preProc = NULL, submodels = NULL){
-  predict(modelFit, newdata, type="probabilities")
-  
-}
 
-lpRidgeReg$prob <- prob
+lpRidgeReg$prob <- list(NULL)
 
 
 ##
 
-trainridge <- train(y=training$medv,x = training,method = lpRidgeReg)
-trainridge
+#trainridge <- train(y=training$medv,x = training,method =lpRidgeReg)
+train(form= medv~., data=training,method ="ridge")
 ```
 
 
-This tells ut that the optimal value of lambda =0.. 
+This tells ut that the optimal value of lambda 0.
 
 
-## 5 
 
-Now, we are using 10 fold cross validation to find the best parameter lambda.VARNING.  
+
+Now, we are using 10 fold cross validation to find the best parameter lambda.  
 
 ```{r}
 fitControl <- trainControl(method = "repeatedcv", number = 10, repeats = 10)
-trainridgecv <- train(y=training$medv,x = training,method = lpRidgeReg,
+trainridgecv <- train(form= medv~., data=training,method ="ridge",
                        trControl = fitControl)
+trainridgecv
 ```
+
+The ultimate value for lambda here is still 0. 
 
 
 
