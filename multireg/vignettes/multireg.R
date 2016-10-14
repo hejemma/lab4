@@ -10,9 +10,9 @@ names(linreg_object)
 #  print(linreg_object) # prints the equation and the beta coefficients
 #  summary(linreg_object) # an output similar to the summary() statement of lm-objects.
 
-## ---- echo=FALSE---------------------------------------------------------
-summary(linreg_object)
-
+## ---- echo=FALSE, eval=FALSE---------------------------------------------
+#  summary(linreg_object)
+#  
 
 ## ---- fig.width=7, fig.height=4------------------------------------------
 library(ggplot2)

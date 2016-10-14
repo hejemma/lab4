@@ -56,3 +56,80 @@ modvaluesFF<- data.frame(obs=training$medv, pred=predictedFF) #df with observed 
 defaultSummary(modvaluesFF)
 
 
+## ------------------------------------------------------------------------
+lpRidgeReg <- list(type = "Regression",
+                   library = "multireg",
+                   loop = NULL) 
+
+prm <- data.frame(parameter = "lambda",
+                  class = "numeric",
+                  label = "lambda")
+
+
+lpRidgeReg$parameters<-prm
+
+grid <- function (x, y, len = NULL, search = "grid")
+{
+  if (search == "grid") {
+    out <- expand.grid(lambda = c(0, 10^seq(-1, -4, length = len - 1)))
+  }
+  else {
+    out <- data.frame(lambda = 10^runif(len, min = -5, 1))
+  }
+  out
+}
+
+lpRidgeReg$grid <- grid
+
+fitreg<-function(x,y,lambda,param,lev,last,classProbs,...){
+  
+  if(is.data.frame(x)){
+    dat<- x
+  }else{
+    dat<- as.data.frame(x)
+  } 
+  dat$medv<- y
+
+  frmla <- as.formula(paste(colnames(dat)[ncol(dat)], 
+                            paste(colnames(dat)[1:(ncol(dat)-1)],
+                                  sep = "", collapse = " + "), sep = " ~ "))
+  
+  model <- multireg::ridgereg(formula= frmla, data=dat, lambda= param)
+  return(model)
+}
+
+lpRidgeReg$fit<-fitreg
+
+pred <- function(modelFit, newdata, preProc = NULL, submodels = NULL){
+  predict(modelFit, newdata)
+}
+
+lpRidgeReg$predict <- pred
+
+
+lpRidgeReg$prob <- list(NULL)
+
+
+##
+
+#trainridge <- train(y=training$medv,x = training,method =lpRidgeReg)
+train(form= medv~., data=training,method ="ridge")
+
+## ------------------------------------------------------------------------
+fitControl <- trainControl(method = "repeatedcv", number = 10, repeats = 10)
+trainridgecv <- train(form= medv~., data=training,method ="ridge",
+                       trControl = fitControl)
+trainridgecv
+
+## ------------------------------------------------------------------------
+testlm<-train(form=medv~., data=testing, method="lm")
+testlm #RMSE 5,82 Rsq 0.621
+
+testridge<-train(form=medv~., data= testing, method="ridge", lambda=0)
+testridge #RMSE 5.49 Rsq 0.678
+testridgecv <- train(form= medv~., data=testing,method ="ridge",
+                       trControl = fitControl, lambda=0)
+testridgecv # RMSE 5,13 Rsq 0.74
+
+
+

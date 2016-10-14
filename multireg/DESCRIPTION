@@ -16,7 +16,8 @@ Depends:
     maps,
     maptools,
     sp,
-    MASS
+    MASS,
+    caret
 Suggests:
     testthat,
     knitr,
