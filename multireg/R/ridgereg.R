@@ -15,7 +15,7 @@
 
 ridgereg<- function(formula, data, lambda=0){
   
-  stopFunction(formula, data, lambda)
+  #stopFunction(formula, data, lambda)
   
   # Create a model matrix X
   varX<- all.vars(formula[[3]]) #kolla vilka som ska va i model matrix
@@ -26,7 +26,7 @@ ridgereg<- function(formula, data, lambda=0){
   #Normalisera xvar #
   X<- modmatX[,-1] 
   X<- apply(X, 2, function(x) (x-mean(x))/sd(x))
-  modmatX[,varX]<- X
+  modmatX[,2:(length(varX)+1)]<- X
   
   # skapa Y matris 
   y<- all.vars(formula)[1]   #hitta vilken dependent Y 
@@ -41,7 +41,7 @@ ridgereg<- function(formula, data, lambda=0){
   I<-diag(nrow(solve(tmodmatX %*% modmatX)))
   
   # beräkna ridge koefficienter #
-  B_hat<- solve((tmodmatX %*% modmatX) + (lambda*I)) %*% (tmodmatX %*% Y)
+  B_hat<- solve((tmodmatX %*% modmatX) + (lambda * I)) %*% (tmodmatX %*% Y)
   B_hat<- as.vector(B_hat)
   names(B_hat)<- colnames(modmatX)
   
