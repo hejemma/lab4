@@ -119,7 +119,7 @@ Which means that the linear regression model is better, due to the higher R squa
 ##4
 
 Now we fit a ridge regression model with our **ridgereg** function, different values of lambda. 
-```{r}
+```{r, eval=FALSE}
 lpRidgeReg <- list(type = "Regression",
                    library = "multireg",
                    loop = NULL) 
@@ -176,7 +176,13 @@ lpRidgeReg$prob <- list(NULL)
 ##
 
 #trainridge <- train(y=training$medv,x = training,method =lpRidgeReg)
+# fungerar inte när vi använder vår egen modell... 
+```
+
+
+```{r}
 train(form= medv~., data=training,method ="ridge")
+
 ```
 
 

@@ -79,6 +79,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2>Ridgereg() function</h2>
 <p>The <strong>ridgereg()</strong> function fits a ridgre regression using the Ordinary Least Squares method. The function takes arguments <strong>formula, data and lambda.</strong> Formula should be the regression equation, it means to say both the response and the predictors. There should also be a dataset where the variables are taken from and a specified lambda value to be used to find the true parameters.</p>
 <p>The function returns an list of a class <strong>ridgereg</strong> containing the regression equation used, the estimates of the beta coefficients and the fitted values.</p>
+<pre><code>## Loading required package: ggplot2</code></pre>
+<pre><code>## Loading required package: gridExtra</code></pre>
+<pre><code>## Loading required package: maps</code></pre>
+<pre><code>## Loading required package: maptools</code></pre>
+<pre><code>## Loading required package: sp</code></pre>
+<pre><code>## Checking rgeos availability: FALSE
+##      Note: when rgeos is not available, polygon geometry     computations in maptools depend on gpclib,
+##      which has a restricted licence. It is disabled by default;
+##      to enable gpclib, type gpclibPermit()</code></pre>
+<pre><code>## Loading required package: MASS</code></pre>
+<pre><code>## Loading required package: caret</code></pre>
+<pre><code>## Loading required package: lattice</code></pre>
 <p>There are three different methods implemented on the function and they will be discussed in the following sections:</p>
 </div>
 <div id="the-coef.ridgereg-method" class="section level2">
@@ -116,6 +128,9 @@ new_pred&lt;-<span class="st"> </span><span class="kw">predict</span>(pred_ridge
 </div>
 <div id="predictive-model-for-the-bostonhousing-data-set" class="section level2">
 <h2>Predictive model for the BostonHousing data set</h2>
+</div>
+<div id="section" class="section level2">
+<h2>1</h2>
 <p>A predictive model is created for the <em>BostonHousing</em> data set located in the <strong>mlbench</strong> package. First, the data is splitted in a training and test set using the <strong>caret</strong> package. The traning part is set to 75 % of the data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mlbench)
 <span class="kw">library</span>(leaps)
@@ -125,16 +140,25 @@ inTrain &lt;-<span class="st"> </span><span class="kw">createDataPartition</span
 
 training &lt;-<span class="st"> </span>BostonHousing[ inTrain,] <span class="co">#training set </span>
 testing &lt;-<span class="st"> </span>BostonHousing[-inTrain,] <span class="co"># test set </span></code></pre></div>
+</div>
+<div id="section-1" class="section level2">
+<h2>2</h2>
 <p>A linear regression model and a linear regression model with forward selection of covariates is fitted to the training set.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lmFit&lt;-<span class="kw">train</span>(medv~., <span class="dt">data =</span> training, <span class="dt">method=</span><span class="st">&quot;lm&quot;</span>)<span class="co"># linear regression</span>
 lmFitForw&lt;-<span class="kw">train</span>(medv~., <span class="dt">data=</span>training, <span class="dt">method=</span><span class="st">&quot;leapForward&quot;</span>)<span class="co"># forward selection</span></code></pre></div>
+</div>
+<div id="section-2" class="section level2">
+<h2>3</h2>
 <p>The evaluating of the performance of the models are being done on the linear regression model:</p>
-<pre><code>##     RMSE Rsquared 
-## 4.667933 0.748927</code></pre>
+<pre><code>##      RMSE  Rsquared 
+## 4.6505586 0.7491115</code></pre>
 <p>And on the fast forward regression model:</p>
 <pre><code>##      RMSE  Rsquared 
-## 5.1053137 0.6996722</code></pre>
+## 5.0124752 0.7085427</code></pre>
 <p>Which means that the linear regression model is better, due to the higher R square and lower RMSE.</p>
+</div>
+<div id="section-3" class="section level2">
+<h2>4</h2>
 <p>Now we fit a ridge regression model with our <strong>ridgereg</strong> function, different values of lambda.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lpRidgeReg &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">type =</span> <span class="st">&quot;Regression&quot;</span>,
                    <span class="dt">library =</span> <span class="st">&quot;multireg&quot;</span>,
@@ -207,15 +231,15 @@ lpRidgeReg$prob &lt;-<span class="st"> </span><span class="kw">list</span>(<span
 ## Resampling results across tuning parameters:
 ## 
 ##   lambda  RMSE      Rsquared 
-##   0e+00   5.136335  0.7153808
-##   1e-04   5.136245  0.7153880
-##   1e-01   5.145325  0.7145800
+##   0e+00   5.069641  0.7107468
+##   1e-04   5.069702  0.7107421
+##   1e-01   5.158070  0.7042695
 ## 
 ## RMSE was used to select the optimal model using  the smallest value.
-## The final value used for the model was lambda = 1e-04.</code></pre>
+## The final value used for the model was lambda = 0.</code></pre>
 <p>This tells ut that the optimal value of lambda 0.</p>
 </div>
-<div id="section" class="section level2">
+<div id="section-4" class="section level2">
 <h2>5</h2>
 <p>Now, we are using 10 fold cross validation to find the best parameter lambda.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fitControl &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method =</span> <span class="st">&quot;repeatedcv&quot;</span>, <span class="dt">number =</span> <span class="dv">10</span>, <span class="dt">repeats =</span> <span class="dv">10</span>)
@@ -229,19 +253,19 @@ trainridgecv</code></pre></div>
 ## 
 ## No pre-processing
 ## Resampling: Cross-Validated (10 fold, repeated 10 times) 
-## Summary of sample sizes: 343, 342, 342, 345, 342, 344, ... 
+## Summary of sample sizes: 344, 342, 343, 342, 342, 343, ... 
 ## Resampling results across tuning parameters:
 ## 
 ##   lambda  RMSE      Rsquared 
-##   0e+00   4.808569  0.7401700
-##   1e-04   4.808487  0.7401769
-##   1e-01   4.834250  0.7379897
+##   0e+00   4.800147  0.7412209
+##   1e-04   4.800093  0.7412250
+##   1e-01   4.834903  0.7383563
 ## 
 ## RMSE was used to select the optimal model using  the smallest value.
 ## The final value used for the model was lambda = 1e-04.</code></pre>
 <p>The ultimate value for lambda here is still 0.</p>
 </div>
-<div id="section-1" class="section level2">
+<div id="section-5" class="section level2">
 <h2>6</h2>
 <p>We test the models on our test data below</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">testlm&lt;-<span class="kw">train</span>(<span class="dt">form=</span>medv~., <span class="dt">data=</span>testing, <span class="dt">method=</span><span class="st">&quot;lm&quot;</span>)
@@ -257,7 +281,7 @@ testlm <span class="co">#RMSE 5,82 Rsq 0.621</span></code></pre></div>
 ## Resampling results:
 ## 
 ##   RMSE      Rsquared 
-##   5.744079  0.6148324
+##   5.192736  0.6724885
 ## 
 ## Tuning parameter 'intercept' was held constant at a value of TRUE
 ## </code></pre>
@@ -274,9 +298,9 @@ testridge <span class="co">#RMSE 5.49 Rsq 0.678</span></code></pre></div>
 ## Resampling results across tuning parameters:
 ## 
 ##   lambda  RMSE      Rsquared 
-##   0e+00   5.549141  0.6300027
-##   1e-04   5.548942  0.6300352
-##   1e-01   5.508439  0.6444270
+##   0e+00   5.485235  0.6453014
+##   1e-04   5.484501  0.6453813
+##   1e-01   5.263181  0.6737159
 ## 
 ## RMSE was used to select the optimal model using  the smallest value.
 ## The final value used for the model was lambda = 0.1.</code></pre>
@@ -290,13 +314,13 @@ testridgecv <span class="co"># RMSE 5,13 Rsq 0.74</span></code></pre></div>
 ## 
 ## No pre-processing
 ## Resampling: Cross-Validated (10 fold, repeated 10 times) 
-## Summary of sample sizes: 112, 112, 113, 113, 112, 112, ... 
+## Summary of sample sizes: 113, 113, 113, 113, 112, 113, ... 
 ## Resampling results across tuning parameters:
 ## 
 ##   lambda  RMSE      Rsquared 
-##   0e+00   5.181655  0.7017681
-##   1e-04   5.181336  0.7018016
-##   1e-01   5.134316  0.7073721
+##   0e+00   4.830796  0.7386291
+##   1e-04   4.830434  0.7386675
+##   1e-01   4.751652  0.7502872
 ## 
 ## RMSE was used to select the optimal model using  the smallest value.
 ## The final value used for the model was lambda = 0.1.</code></pre>
