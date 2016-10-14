@@ -35,7 +35,7 @@ summary(linreg_object) # an output similar to the summary() statement of lm-obje
 
 An example of the **summary()** function for class **linreg**: 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, eval=FALSE}
 summary(linreg_object)
 
 ```
